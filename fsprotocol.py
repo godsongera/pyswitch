@@ -29,8 +29,15 @@ class Event(Message):
         for k,v in self.items():
             del self[k]
             self[k] = urllib.unquote(v)
+            
         
-
+class EventCallback:
+    def __init__(self, eventname, func, *args, **kwargs):
+        self.func = func
+        self.eventname = eventname
+        self.args = args
+        self.kwargs = kwargs        
+        
 class FSProtocol(basic.LineReceiver):
     """FreeSWITCH EventSocket protocol implementation.
     
@@ -50,24 +57,31 @@ class FSProtocol(basic.LineReceiver):
                         }
         self.pendingJobs = []   
         self.pendingBackgoundJobs = {}        
-        self.eventCallbacks = {}
+        self.eventCallbacks = []
         
     
-    def registerEvent(self, event,function):
+    def registerEvent(self, event,function, *args, **kwargs):
         """Register a callback for the event 
-        event - Event name as sent by FreeSWITCH
-        function - callback function accepts a event dictionary as first argument
-        """
-        callbacks = self.eventCallbacks.get(event, [])
-        callbacks.append(function)
-        self.eventCallbacks[event]=callbacks
+        event -- Event name as sent by FreeSWITCH
+        function -- callback function accepts a event dictionary as first argument
+        args -- argumnet to be passed to callback function
+        kwargs -- keyword arguments to be passed to callback function
         
-    def deregisterEvent(self, event, function):
-        """Deregister a callback for the given event"""
-        callbacks = self.eventCallbacks.get(event, "")
-        if not callbacks:
-            return 
-        callbacks.remove(function)
+        returns instance of  EventCallback , keep a reference of this around if you want to deregister it later
+        """       
+        ecb = EventCallback(event, function, *args, **kwargs)
+        self.eventCallbacks.append(ecb)        
+        return ecb
+        
+    def deregisterEvent(self,ecb):
+        """Deregister a callback for the given event
+        
+        ecb -- (EventCallback) instance of EventCallback object
+        """
+        try:
+            self.eventCallbacks.remove(ecb)
+        except ValueError:
+            log.error("%s already deregistered "%ecb)
         
     def connectionMade(self):
         log.info("Connected to FreeSWITCH")
@@ -114,15 +128,15 @@ class FSProtocol(basic.LineReceiver):
             
     def dispacthEvent(self):
         self.state = "READ_CONTENT"
-        callbacks = self.eventCallbacks.get(self.message['Event-Name'], '')        
-        if not callbacks:            
-            return
-        #event = self.decodeMessage()
-        for callback in callbacks:            
+        eventname = self.message['Event-Name']
+        
+        for ecb in self.eventCallbacks: 
+            if ecb.eventname != eventname:
+                continue
             try:
-                callback(self.message)
+                ecb.func(self.message, *ecb.args, **ecb.kwargs)                
             except Exception,  err:
-                log.error("Error in event handler %s on event %s: %s"%(callback, self.message['Event-Name'], err))
+                log.error("Error in event handler %s on event %s: %s"%(ecb.func, eventname, err))
     
     def onConnect(self):
         """Channel Information is ready to be read.
@@ -208,8 +222,7 @@ class FSProtocol(basic.LineReceiver):
         msg -- (event) Event object 
         
         """
-        df = defer.Deferred()
-        #self.pendingJobs.append((msg.get_unixfrom(), df))
+        df = defer.Deferred()        
         self.pendingJobs.append(df)
         msg = msg.as_string(True)
         self.transport.write(msg)
@@ -228,23 +241,7 @@ class FSProtocol(basic.LineReceiver):
             msg['execute-app-arg']=args
         if lock:
             msg['event-lock'] = "true"
-        return self.sendMsg(msg)
-        
-        """callcommand = "call-command: execute"
-        appname = "execute-app-name: "+cmd
-        msgargs = "\n".join([callcommand, appname])
-        if args:
-            appargs = "execute-app-arg: "+args      
-            msgargs = '\n'.join([msgargs, appargs])
-        if lock:
-            lockevent = "event-lock: true"
-            msgargs = "\n".join([msgargs, lockevent])
-        if uuid:
-            msg = 'sendmsg %s'%uuid
-        else:
-            msg = "sendmsg"
-        data = '\n'.join([msg, msgargs])        
-        return self.sendData(data)"""
+        return self.sendMsg(msg)        
         
     def sendAPI(self, apicmd, background=jobType):
         if background:            
@@ -595,11 +592,47 @@ class FSProtocol(basic.LineReceiver):
         args = '='.join([variable, value])
         return self.sendCommand("set", args, uuid, lock)
         
-    def playAndGetDigits(self, min, max, tries=3, timeout=4000,  terminators='#', filename='',invalidfile='', var_name='',regexp='\d',uuid='',lock=True):
-        arglist = [min, max, tries, timeout, terminators, filename, invalidfile, var_name, regexp]
+    def playAndGetDigits(self, min, max, tries=3, timeout=4000,  terminators='#', filename='',invalidfile=' ', varname='',regexp='\d',uuid='',lock=True):
+        """Play the given sound file and get back caller's DTMF
+        min -- (int) minimum digits length
+        max -- (int) maximum digits length
+        tires -- (int) number of times to play the audio file default is 3
+        timeout -- (int) time to wait after fileblack in milliseconds . default is 4000
+        filename -- (str) name of the audio file to be played 
+        varname -- (str) DTMF digit value will be set as value to the variable of this name
+        regexp -- (str) regurlar expression to match the DTMF 
+        uuid -- (str) uuid of the target channel 
+        
+        Make sure CHANNEL_EXECUTE_COMPLETE  event is subcribed otherwise finalDF will never get invoked
+        """
+        arglist = [min, max, tries, timeout, terminators, filename, invalidfile, varname, regexp]
         arglist = map(str, arglist)
+        #arglist = map(repr, arglist)
         data = ' '.join(arglist)
-        return self.sendCommand("play_and_get_digits",  data, uuid, lock)
+        finalDF = defer.Deferred()        
+        df = self.sendCommand("play_and_get_digits",  data, uuid, lock)
+        df.addCallback(self._playAndGetDigitsSuccess, finalDF, varname)
+        df.addErrback(self._playAndGetDigitsFailure, finalDF)
+        return finalDF
+        
+        
+    def _playAndGetDigitsSuccess(self, msg, finalDF, varname):
+        """Successfully executed playAndGetDigits. Register a callback to catch DTMF"""
+
+        ecb = self.registerEvent("CHANNEL_EXECUTE_COMPLETE", self._checkPlaybackResult, finalDF, varname)        
+        finalDF.ecb = ecb
+        
+    def _playAndGetDigitsFailure(self, error, finalDF):
+        """Failed to execute playAndGetDigits, invoke finalDF errback"""
+        finalDF.errback(error)
+        
+    def _checkPlaybackResult(self, event, finalDF, varname):        
+        if event['Application'] == "play_and_get_digits":
+            self.deregisterEvent(finalDF.ecb)
+            if event.has_key("variable_"+varname):
+                finalDF.callback(event['variable_'+varname])                
+            else:
+                finalDF.callback(None)
 
     def sched_hangup(self, secs, uuid, lock=True):
         """Schedule hangup 
