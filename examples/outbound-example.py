@@ -25,6 +25,6 @@ class OutboundProtocol(outbound.OutboundProtocol):
 class Factory(protocol.ServerFactory):
     protocol = OutboundProtocol
     
-
-reactor.listenTCP(8085, Factory())
-reactor.run()
+if __name__=="__main__":
+    reactor.listenTCP(8085, Factory())
+    reactor.run()

@@ -30,7 +30,24 @@ class Event(Message):
             del self[k]
             self[k] = urllib.unquote(v)
             
-        
+    #Overriding this method was required as default python lib wraps headers with length greater than 78 chars which is bad for FreeSWITCH
+    def as_string(self, unixfrom=False):
+        """Return the entire formatted message as a string.
+        Optional `unixfrom' when True, means include the Unix From_ envelope
+        header.
+
+        This is a convenience method and may not generate the message exactly
+        as you intend because by default it mangles lines that begin with
+        "From ".  For more flexibility, use the flatten() method of a
+        Generator instance.
+        """
+        from email.Generator import Generator
+        from cStringIO import StringIO
+        fp = StringIO()
+        g = Generator(fp, maxheaderlen=0)
+        g.flatten(self, unixfrom=unixfrom)
+        return fp.getvalue()
+
 class EventCallback:
     def __init__(self, eventname, func, *args, **kwargs):
         self.func = func
@@ -58,20 +75,41 @@ class FSProtocol(basic.LineReceiver):
         self.pendingJobs = []   
         self.pendingBackgoundJobs = {}        
         self.eventCallbacks = []
+        self.subscribedEvents = []
         
     
-    def registerEvent(self, event,function, *args, **kwargs):
+    def registerEvent(self, event,subscribe, function, *args, **kwargs):
         """Register a callback for the event 
-        event -- Event name as sent by FreeSWITCH
+        event -- (str) Event name as sent by FreeSWITCH
+        subsribe -- (bool) if True subscribe to this event
         function -- callback function accepts a event dictionary as first argument
         args -- argumnet to be passed to callback function
         kwargs -- keyword arguments to be passed to callback function
         
         returns instance of  EventCallback , keep a reference of this around if you want to deregister it later
-        """       
+        """
+        if subscribe:
+            if self.needToSubscribe(event):
+                self.subscribeEvents(event)
         ecb = EventCallback(event, function, *args, **kwargs)
         self.eventCallbacks.append(ecb)        
         return ecb
+        
+    def needToSubscribe(self, event):
+        """Decide if we need to subscribe to an event or not by comparing the event provided against already subscribeEvents
+        
+        event -- (str) event name 
+        
+        retruns bool
+        """
+        if "all" in self.subscribedEvents:
+            return False
+        if event in self.subscribedEvents:
+            return False
+        else:
+            return True
+            
+        
         
     def deregisterEvent(self,ecb):
         """Deregister a callback for the given event
@@ -237,10 +275,10 @@ class FSProtocol(basic.LineReceiver):
             msg.set_unixfrom("SendMsg")
         msg['call-command']="execute"
         msg['execute-app-name']=cmd
-        if args:
+        if args:            
             msg['execute-app-arg']=args
         if lock:
-            msg['event-lock'] = "true"
+            msg['event-lock'] = "true"        
         return self.sendMsg(msg)        
         
     def sendAPI(self, apicmd, background=jobType):
@@ -257,7 +295,7 @@ class FSProtocol(basic.LineReceiver):
         
     def onBackgroundJob(self, message, df):        
         self.pendingBackgoundJobs[message["Reply-Text"].split(":")[1].strip()] = df       
-        self.registerEvent("BACKGROUND_JOB", self.onBackgroundJobFinalEvent)
+        self.registerEvent("BACKGROUND_JOB", True,  self.onBackgroundJobFinalEvent)
         
     def onBackgroundJobFinalEvent(self, event):
         self.rawdataCache = ''
@@ -271,7 +309,13 @@ class FSProtocol(basic.LineReceiver):
         
     def subscribeEvents(self, events):
         """Subcribe to FreeSWITCH events.
-        events - 'all'  sucbscribe to all events """        
+        
+        events -(str) 'all'  sucbscribe to all events or event names seprated by space
+        """
+        
+        _events = events.split(' ')
+        for event in _events:
+            self.subscribedEvents.append(events)
         
         return self.sendData("event", events)
         
@@ -592,7 +636,7 @@ class FSProtocol(basic.LineReceiver):
         args = '='.join([variable, value])
         return self.sendCommand("set", args, uuid, lock)
         
-    def playAndGetDigits(self, min, max, tries=3, timeout=4000,  terminators='#', filename='',invalidfile=' ', varname='',regexp='\d',uuid='',lock=True):
+    def playAndGetDigits(self, min, max, tries=3, timeout=4000,  terminators='#', filename='',invalidfile='', varname='',regexp='\d',uuid='',lock=True):
         """Play the given sound file and get back caller's DTMF
         min -- (int) minimum digits length
         max -- (int) maximum digits length
@@ -607,10 +651,12 @@ class FSProtocol(basic.LineReceiver):
         """
         arglist = [min, max, tries, timeout, terminators, filename, invalidfile, varname, regexp]
         arglist = map(str, arglist)
+        
         #arglist = map(repr, arglist)
         data = ' '.join(arglist)
+        
         finalDF = defer.Deferred()        
-        df = self.sendCommand("play_and_get_digits",  data, uuid, lock)
+        df = self.sendCommand("play_and_get_digits", data, uuid, lock)
         df.addCallback(self._playAndGetDigitsSuccess, finalDF, varname)
         df.addErrback(self._playAndGetDigitsFailure, finalDF)
         return finalDF
@@ -619,7 +665,7 @@ class FSProtocol(basic.LineReceiver):
     def _playAndGetDigitsSuccess(self, msg, finalDF, varname):
         """Successfully executed playAndGetDigits. Register a callback to catch DTMF"""
 
-        ecb = self.registerEvent("CHANNEL_EXECUTE_COMPLETE", self._checkPlaybackResult, finalDF, varname)        
+        ecb = self.registerEvent("CHANNEL_EXECUTE_COMPLETE", True, self._checkPlaybackResult, finalDF, varname)        
         finalDF.ecb = ecb
         
     def _playAndGetDigitsFailure(self, error, finalDF):
@@ -634,15 +680,19 @@ class FSProtocol(basic.LineReceiver):
             else:
                 finalDF.callback(None)
 
-    def sched_hangup(self, secs, uuid, lock=True):
+    def schedHangup(self, secs, uuid, lock=True):
         """Schedule hangup 
         
         seconds -- (int/str) seconds to wait before hangup 
         """
         args = "+"+str(secs)
         return self.sendCommand("sched_hangup", args, uuid, lock)
-
         
-                
-            
+    def record(self, path, time_limit_secs=' ', silence_thresh=' ', silence_hits=' ', terminators='', uuid='', lock=True):
+        terminators = terminators or 'none'
+        self.set("playback_terminators", terminators)
+        args = ' '.join([path, time_limit_secs, silence_thresh, silence_hits])        
+        return self.sendCommand("record", args)
+        
+    
 

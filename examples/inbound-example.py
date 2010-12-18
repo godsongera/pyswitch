@@ -54,4 +54,5 @@ p = InboundTest()
 f.loginDeferred.addCallback(p.onLogin)
 f.loginDeferred.addErrback(p.onLoginFailed)
 reactor.connectTCP("127.0.0.1", 8021, f)
-reactor.run()
+if __name__=="__main__":
+    reactor.run()
