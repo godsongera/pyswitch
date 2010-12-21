@@ -16,17 +16,13 @@ class InboundTest:
         
         
         
-    def onEventsSucess(self, event):
-        
-        log.info(event)
-        #self.eventsocket.playback("D:/workspace/fsradius/sounds/en/prepaid-welcome.gsm", '1',"c541d96c-8af2-024c-9835-e8dd9e177d9c")
+    def onEventsSucess(self, event):        
+        log.info(event)        
         uid = str(uuid.uuid1())
         df = self.eventsocket.apiOriginate("sofia/internal/1000%", "park",  cidname="godson", cidnum="123" ,channelvars={"origination_uuid":uid},  background=True)
-        self.eventsocket.registerEvent("CHANNEL_STATE", self.channelState)
-        self.eventsocket.registerEvent("CHANNEL_ANSWER", self.channelAnswer)
+        self.eventsocket.registerEvent("CHANNEL_STATE", False, self.channelState)
+        self.eventsocket.registerEvent("CHANNEL_ANSWER", False, self.channelAnswer)
         df.addCallback(self.originateSuccess)
-        #df = self.eventsocket.apiGlobalGetVar(background=True)
-        #df.addCallbacks(self.onGlobalGetVar, self.onEventsFailure)
         
     def originateSuccess(self, event):
         print "originate success"
@@ -46,7 +42,7 @@ class InboundTest:
         log.error("Login failed")
         log.error(error)
     
-#logging.basicConfig(level = logging.DEBUG)
+logging.basicConfig(level = logging.DEBUG)
 
         
 f = inbound.InboundFactory("ClueCon")
