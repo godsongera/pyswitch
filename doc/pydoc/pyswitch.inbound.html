@@ -1,0 +1,495 @@
+
+<!doctype html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module pyswitch.inbound</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="pyswitch.html"><font color="#ffffff">pyswitch</font></a>.inbound</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:///C|/python25/lib/site-packages/pyswitch/inbound.py">c:\python25\lib\site-packages\pyswitch\inbound.py</a></font></td></tr></table>
+    <p><tt>#!/usr/bin/python</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#fffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="twisted.protocols.basic.html">twisted.protocols.basic</a><br>
+<a href="twisted.internet.defer.html">twisted.internet.defer</a><br>
+</td><td width="25%" valign=top><a href="logging.html">logging</a><br>
+<a href="twisted.internet.protocol.html">twisted.internet.protocol</a><br>
+</td><td width="25%" valign=top><a href="sys.html">sys</a><br>
+<a href="urllib.html">urllib</a><br>
+</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="pyswitch.fsprotocol.html#FSProtocol">FSProtocol</a>(<a href="twisted.protocols.basic.html#LineReceiver">LineReceiver</a>)
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="pyswitch.inbound.html#InboundProtocol">InboundProtocol</a>
+</font></dt></dl>
+</dd>
+<dt><font face="helvetica, arial"><a href="twisted.internet.protocol.html#ClientFactory">ClientFactory</a>(<a href="twisted.internet.protocol.html#Factory">Factory</a>)
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="pyswitch.inbound.html#InboundFactory">InboundFactory</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="InboundFactory">class <strong>InboundFactory</strong></a>(<a href="twisted.internet.protocol.html#ClientFactory">ClientFactory</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>A&nbsp;factory&nbsp;for&nbsp;InboundSocketProtocol<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="pyswitch.inbound.html#InboundFactory">InboundFactory</a></dd>
+<dd><a href="twisted.internet.protocol.html#ClientFactory">ClientFactory</a></dd>
+<dd><a href="twisted.internet.protocol.html#Factory">Factory</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="InboundFactory-__init__"><strong>__init__</strong></a>(self, password)</dt></dl>
+
+<dl><dt><a name="InboundFactory-clientConnetionFailed"><strong>clientConnetionFailed</strong></a>(self, connector, reason)</dt></dl>
+
+<hr>
+Data and other attributes defined here:<br>
+<dl><dt><strong>protocol</strong> = &lt;class pyswitch.inbound.InboundProtocol at 0x02741210&gt;<dd><tt>Inbound&nbsp;connection&nbsp;to&nbsp;FreeSWITCH.<br>
+Using&nbsp;inbound&nbsp;socket&nbsp;connections&nbsp;you&nbsp;can&nbsp;check&nbsp;status,&nbsp;make&nbsp;outbound&nbsp;calls,&nbsp;etc.</tt></dl>
+
+<hr>
+Methods inherited from <a href="twisted.internet.protocol.html#ClientFactory">ClientFactory</a>:<br>
+<dl><dt><a name="InboundFactory-clientConnectionFailed"><strong>clientConnectionFailed</strong></a>(self, connector, reason)</dt><dd><tt>Called&nbsp;when&nbsp;a&nbsp;connection&nbsp;has&nbsp;failed&nbsp;to&nbsp;connect.<br>
+&nbsp;<br>
+It&nbsp;may&nbsp;be&nbsp;useful&nbsp;to&nbsp;call&nbsp;connector.connect()&nbsp;-&nbsp;this&nbsp;will&nbsp;reconnect.<br>
+&nbsp;<br>
+@type&nbsp;reason:&nbsp;L{twisted.python.failure.Failure}</tt></dd></dl>
+
+<dl><dt><a name="InboundFactory-clientConnectionLost"><strong>clientConnectionLost</strong></a>(self, connector, reason)</dt><dd><tt>Called&nbsp;when&nbsp;an&nbsp;established&nbsp;connection&nbsp;is&nbsp;lost.<br>
+&nbsp;<br>
+It&nbsp;may&nbsp;be&nbsp;useful&nbsp;to&nbsp;call&nbsp;connector.connect()&nbsp;-&nbsp;this&nbsp;will&nbsp;reconnect.<br>
+&nbsp;<br>
+@type&nbsp;reason:&nbsp;L{twisted.python.failure.Failure}</tt></dd></dl>
+
+<dl><dt><a name="InboundFactory-startedConnecting"><strong>startedConnecting</strong></a>(self, connector)</dt><dd><tt>Called&nbsp;when&nbsp;a&nbsp;connection&nbsp;has&nbsp;been&nbsp;started.<br>
+&nbsp;<br>
+You&nbsp;can&nbsp;call&nbsp;connector.stopConnecting()&nbsp;to&nbsp;stop&nbsp;the&nbsp;connection&nbsp;attempt.<br>
+&nbsp;<br>
+@param&nbsp;connector:&nbsp;a&nbsp;Connector&nbsp;object.</tt></dd></dl>
+
+<hr>
+Methods inherited from <a href="twisted.internet.protocol.html#Factory">Factory</a>:<br>
+<dl><dt><a name="InboundFactory-buildProtocol"><strong>buildProtocol</strong></a>(self, addr)</dt><dd><tt>Create&nbsp;an&nbsp;instance&nbsp;of&nbsp;a&nbsp;subclass&nbsp;of&nbsp;Protocol.<br>
+&nbsp;<br>
+The&nbsp;returned&nbsp;instance&nbsp;will&nbsp;handle&nbsp;input&nbsp;on&nbsp;an&nbsp;incoming&nbsp;server<br>
+connection,&nbsp;and&nbsp;an&nbsp;attribute&nbsp;"factory"&nbsp;pointing&nbsp;to&nbsp;the&nbsp;creating<br>
+factory.<br>
+&nbsp;<br>
+Override&nbsp;this&nbsp;method&nbsp;to&nbsp;alter&nbsp;how&nbsp;Protocol&nbsp;instances&nbsp;get&nbsp;created.<br>
+&nbsp;<br>
+@param&nbsp;addr:&nbsp;an&nbsp;object&nbsp;implementing&nbsp;L{twisted.internet.interfaces.IAddress}</tt></dd></dl>
+
+<dl><dt><a name="InboundFactory-doStart"><strong>doStart</strong></a>(self)</dt><dd><tt>Make&nbsp;sure&nbsp;startFactory&nbsp;is&nbsp;called.<br>
+&nbsp;<br>
+Users&nbsp;should&nbsp;not&nbsp;call&nbsp;this&nbsp;function&nbsp;themselves!</tt></dd></dl>
+
+<dl><dt><a name="InboundFactory-doStop"><strong>doStop</strong></a>(self)</dt><dd><tt>Make&nbsp;sure&nbsp;stopFactory&nbsp;is&nbsp;called.<br>
+&nbsp;<br>
+Users&nbsp;should&nbsp;not&nbsp;call&nbsp;this&nbsp;function&nbsp;themselves!</tt></dd></dl>
+
+<dl><dt><a name="InboundFactory-startFactory"><strong>startFactory</strong></a>(self)</dt><dd><tt>This&nbsp;will&nbsp;be&nbsp;called&nbsp;before&nbsp;I&nbsp;begin&nbsp;listening&nbsp;on&nbsp;a&nbsp;Port&nbsp;or&nbsp;Connector.<br>
+&nbsp;<br>
+It&nbsp;will&nbsp;only&nbsp;be&nbsp;called&nbsp;once,&nbsp;even&nbsp;if&nbsp;the&nbsp;factory&nbsp;is&nbsp;connected<br>
+to&nbsp;multiple&nbsp;ports.<br>
+&nbsp;<br>
+This&nbsp;can&nbsp;be&nbsp;used&nbsp;to&nbsp;perform&nbsp;'unserialization'&nbsp;tasks&nbsp;that<br>
+are&nbsp;best&nbsp;put&nbsp;off&nbsp;until&nbsp;things&nbsp;are&nbsp;actually&nbsp;running,&nbsp;such<br>
+as&nbsp;connecting&nbsp;to&nbsp;a&nbsp;database,&nbsp;opening&nbsp;files,&nbsp;etcetera.</tt></dd></dl>
+
+<dl><dt><a name="InboundFactory-stopFactory"><strong>stopFactory</strong></a>(self)</dt><dd><tt>This&nbsp;will&nbsp;be&nbsp;called&nbsp;before&nbsp;I&nbsp;stop&nbsp;listening&nbsp;on&nbsp;all&nbsp;Ports/Connectors.<br>
+&nbsp;<br>
+This&nbsp;can&nbsp;be&nbsp;overridden&nbsp;to&nbsp;perform&nbsp;'shutdown'&nbsp;tasks&nbsp;such&nbsp;as&nbsp;disconnecting<br>
+database&nbsp;connections,&nbsp;closing&nbsp;files,&nbsp;etc.<br>
+&nbsp;<br>
+It&nbsp;will&nbsp;be&nbsp;called,&nbsp;for&nbsp;example,&nbsp;before&nbsp;an&nbsp;application&nbsp;shuts&nbsp;down,<br>
+if&nbsp;it&nbsp;was&nbsp;connected&nbsp;to&nbsp;a&nbsp;port.&nbsp;User&nbsp;code&nbsp;should&nbsp;not&nbsp;call&nbsp;this&nbsp;function<br>
+directly.</tt></dd></dl>
+
+<hr>
+Data and other attributes inherited from <a href="twisted.internet.protocol.html#Factory">Factory</a>:<br>
+<dl><dt><strong>__implemented__</strong> = &lt;implementedBy twisted.internet.protocol.Factory&gt;</dl>
+
+<dl><dt><strong>__providedBy__</strong> = &lt;zope.interface.declarations.Declaration object at 0x027D5BF0&gt;</dl>
+
+<dl><dt><strong>noisy</strong> = True</dl>
+
+<dl><dt><strong>numPorts</strong> = 0</dl>
+
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="InboundProtocol">class <strong>InboundProtocol</strong></a>(<a href="pyswitch.fsprotocol.html#FSProtocol">FSProtocol</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>Inbound&nbsp;connection&nbsp;to&nbsp;FreeSWITCH.<br>
+Using&nbsp;inbound&nbsp;socket&nbsp;connections&nbsp;you&nbsp;can&nbsp;check&nbsp;status,&nbsp;make&nbsp;outbound&nbsp;calls,&nbsp;etc.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="pyswitch.inbound.html#InboundProtocol">InboundProtocol</a></dd>
+<dd><a href="pyswitch.fsprotocol.html#FSProtocol">FSProtocol</a></dd>
+<dd><a href="twisted.protocols.basic.html#LineReceiver">LineReceiver</a></dd>
+<dd><a href="twisted.internet.protocol.html#Protocol">Protocol</a></dd>
+<dd><a href="twisted.internet.protocol.html#BaseProtocol">BaseProtocol</a></dd>
+<dd><a href="twisted.protocols.basic.html#_PauseableMixin">_PauseableMixin</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="InboundProtocol-auth"><strong>auth</strong></a>(self)</dt><dd><tt>Perform&nbsp;authentication<br>
+&nbsp;<br>
+returns&nbsp;deferred&nbsp;fired&nbsp;on&nbsp;successfull&nbsp;authentication</tt></dd></dl>
+
+<dl><dt><a name="InboundProtocol-authFailed"><strong>authFailed</strong></a>(self, error)</dt><dd><tt>Override&nbsp;this&nbsp;for&nbsp;when&nbsp;authentication&nbsp;failed</tt></dd></dl>
+
+<dl><dt><a name="InboundProtocol-authSuccess"><strong>authSuccess</strong></a>(self, msg)</dt><dd><tt>Override&nbsp;this&nbsp;for&nbsp;when&nbsp;authentication&nbsp;is&nbsp;sueccessful</tt></dd></dl>
+
+<hr>
+Methods inherited from <a href="pyswitch.fsprotocol.html#FSProtocol">FSProtocol</a>:<br>
+<dl><dt><a name="InboundProtocol-__init__"><strong>__init__</strong></a>(self, *arg, **kwargs)</dt><dd><tt>Initialize&nbsp;<a href="pyswitch.fsprotocol.html#FSProtocol">FSProtocol</a>&nbsp;arguments&nbsp;are&nbsp;ignored</tt></dd></dl>
+
+<dl><dt><a name="InboundProtocol-answer"><strong>answer</strong></a>(self, uuid<font color="#909090">=''</font>, lock<font color="#909090">=True</font>)</dt><dd><tt>Answer&nbsp;cahnnel<br>
+&nbsp;<br>
+uuid&nbsp;--&nbsp;(str)&nbsp;uuid&nbsp;of&nbsp;target&nbsp;channel<br>
+lock&nbsp;--&nbsp;(bool)&nbsp;lock&nbsp;the&nbsp;channel&nbsp;until&nbsp;execution&nbsp;is&nbsp;finished</tt></dd></dl>
+
+<dl><dt><a name="InboundProtocol-apiDomainExists"><strong>apiDomainExists</strong></a>(self, domain, background<font color="#909090">=False</font>)</dt></dl>
+
+<dl><dt><a name="InboundProtocol-apiGlobalGetVar"><strong>apiGlobalGetVar</strong></a>(self, variable<font color="#909090">=''</font>, background<font color="#909090">=False</font>)</dt><dd><tt>Get&nbsp;the&nbsp;value&nbsp;of&nbsp;a&nbsp;global&nbsp;variable<br>
+&nbsp;<br>
+variable&nbsp;--&nbsp;name&nbsp;of&nbsp;the&nbsp;variable<br>
+&nbsp;<br>
+returns&nbsp;the&nbsp;value&nbsp;of&nbsp;the&nbsp;provided&nbsp;global&nbsp;variable&nbsp;if&nbsp;argument&nbsp;variable&nbsp;is&nbsp;not&nbsp;present&nbsp;then&nbsp;all&nbsp;global&nbsp;variables&nbsp;are&nbsp;returned.</tt></dd></dl>
+
+<dl><dt><a name="InboundProtocol-apiGlobalSetVar"><strong>apiGlobalSetVar</strong></a>(self, variable, value, background<font color="#909090">=False</font>)</dt><dd><tt>Set&nbsp;the&nbsp;value&nbsp;of&nbsp;a&nbsp;global&nbsp;variable<br>
+&nbsp;<br>
+variable&nbsp;--&nbsp;name&nbsp;of&nbsp;the&nbsp;variable&nbsp;whose&nbsp;value&nbsp;needs&nbsp;to&nbsp;be&nbsp;set<br>
+value&nbsp;--&nbsp;value&nbsp;of&nbsp;the&nbsp;variable&nbsp;to&nbsp;be&nbsp;set</tt></dd></dl>
+
+<dl><dt><a name="InboundProtocol-apiHupAll"><strong>apiHupAll</strong></a>(self, cause<font color="#909090">='NORMAL_CLEARING'</font>, variable<font color="#909090">=''</font>, value<font color="#909090">=''</font>, background<font color="#909090">=False</font>)</dt><dd><tt>Hangup&nbsp;all&nbsp;the&nbsp;existing&nbsp;channels&nbsp;<br>
+&nbsp;<br>
+cause&nbsp;--&nbsp;cause&nbsp;for&nbsp;hanging&nbsp;up&nbsp;<br>
+variable&nbsp;--&nbsp;channel&nbsp;having&nbsp;the&nbsp;provided&nbsp;variable&nbsp;will&nbsp;be&nbsp;checked&nbsp;for&nbsp;hangup<br>
+value&nbsp;--&nbsp;value&nbsp;of&nbsp;the&nbsp;variable.&nbsp;Hangup&nbsp;only&nbsp;if&nbsp;this&nbsp;matches</tt></dd></dl>
+
+<dl><dt><a name="InboundProtocol-apiLoad"><strong>apiLoad</strong></a>(self, module_name, background<font color="#909090">=False</font>)</dt><dd><tt>Load&nbsp;external&nbsp;module&nbsp;<br>
+&nbsp;<br>
+module_name&nbsp;--&nbsp;(str)&nbsp;name&nbsp;of&nbsp;the&nbsp;module</tt></dd></dl>
+
+<dl><dt><a name="InboundProtocol-apiOriginate"><strong>apiOriginate</strong></a>(self, url, application<font color="#909090">=''</font>, appargs<font color="#909090">=''</font>, extension<font color="#909090">=''</font>, dialplan<font color="#909090">=''</font>, context<font color="#909090">=''</font>, cidname<font color="#909090">=''</font>, cidnum<font color="#909090">=''</font>, timeout<font color="#909090">=''</font>, channelvars<font color="#909090">={}</font>, background<font color="#909090">=False</font>)</dt><dd><tt>Originate&nbsp;a&nbsp;new&nbsp;channel&nbsp;and&nbsp;connect&nbsp;it&nbsp;back&nbsp;to&nbsp;the&nbsp;specified&nbsp;extension&nbsp;or&nbsp;application<br>
+&nbsp;<br>
+url&nbsp;--&nbsp;(str)&nbsp;call&nbsp;url&nbsp;.&nbsp;Should&nbsp;be&nbsp;a&nbsp;valid&nbsp;FreeSWITCH&nbsp;supported&nbsp;URL<br>
+extension&nbsp;--&nbsp;(str)&nbsp;Extension&nbsp;number&nbsp;that&nbsp;the&nbsp;originated&nbsp;call&nbsp;has&nbsp;to&nbsp;be&nbsp;connected&nbsp;back&nbsp;to.&nbsp;make&nbsp;sure&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;that&nbsp;you&nbsp;provide&nbsp;dialplan&nbsp;and&nbsp;context&nbsp;also&nbsp;when&nbsp;this&nbsp;arg&nbsp;is&nbsp;provided.<br>
+application&nbsp;--&nbsp;(str)&nbsp;Application&nbsp;name&nbsp;to&nbsp;connect&nbsp;to,&nbsp;either&nbsp;extension&nbsp;or&nbsp;application&nbsp;has&nbsp;to&nbsp;be&nbsp;provided<br>
+appargs&nbsp;--&nbsp;(str)&nbsp;application&nbsp;arguments&nbsp;<br>
+dialplan&nbsp;--&nbsp;(str)&nbsp;FreeSWITCH&nbsp;dialplan<br>
+context&nbsp;--&nbsp;(str)&nbsp;Context&nbsp;to&nbsp;look&nbsp;for&nbsp;the&nbsp;extension&nbsp;<br>
+cidname&nbsp;--&nbsp;(str)&nbsp;Outbound&nbsp;caller&nbsp;ID&nbsp;name&nbsp;<br>
+cidnum&nbsp;--&nbsp;(str)&nbsp;Outbound&nbsp;caller&nbsp;ID&nbsp;number<br>
+channelvars&nbsp;--&nbsp;(dict)&nbsp;key&nbsp;value&nbsp;pairs&nbsp;of&nbsp;channel&nbsp;variables&nbsp;to&nbsp;be&nbsp;set&nbsp;on&nbsp;originated&nbsp;channel.</tt></dd></dl>
+
+<dl><dt><a name="InboundProtocol-apiPause"><strong>apiPause</strong></a>(self, uuid, flag<font color="#909090">=True</font>, background<font color="#909090">=False</font>)</dt></dl>
+
+<dl><dt><a name="InboundProtocol-apiReload"><strong>apiReload</strong></a>(self, module_name, background<font color="#909090">=False</font>)</dt><dd><tt>Reload&nbsp;and&nbsp;external&nbsp;module<br>
+&nbsp;<br>
+module_name&nbsp;--&nbsp;(str)&nbsp;name&nbsp;of&nbsp;the&nbsp;module</tt></dd></dl>
+
+<dl><dt><a name="InboundProtocol-apiReloadXML"><strong>apiReloadXML</strong></a>(self, background<font color="#909090">=False</font>)</dt><dd><tt>Reload&nbsp;XML&nbsp;configuration</tt></dd></dl>
+
+<dl><dt><a name="InboundProtocol-apiStatus"><strong>apiStatus</strong></a>(self, background<font color="#909090">=False</font>)</dt><dd><tt>Fetch&nbsp;freeswitch&nbsp;status</tt></dd></dl>
+
+<dl><dt><a name="InboundProtocol-apiUUIDBreak"><strong>apiUUIDBreak</strong></a>(self, uuid, all<font color="#909090">=True</font>, background<font color="#909090">=False</font>)</dt><dd><tt>Break&nbsp;out&nbsp;of&nbsp;media&nbsp;being&nbsp;sent&nbsp;to&nbsp;a&nbsp;channel.&nbsp;For&nbsp;example,&nbsp;<br>
+if&nbsp;an&nbsp;audio&nbsp;file&nbsp;is&nbsp;being&nbsp;played&nbsp;to&nbsp;a&nbsp;channel,&nbsp;issuing&nbsp;uuid_break&nbsp;<br>
+will&nbsp;discontinue&nbsp;the&nbsp;media&nbsp;and&nbsp;the&nbsp;call&nbsp;will&nbsp;move&nbsp;on&nbsp;in&nbsp;the&nbsp;dialplan,&nbsp;<br>
+script,&nbsp;or&nbsp;whatever&nbsp;is&nbsp;controlling&nbsp;the&nbsp;call.<br>
+&nbsp;<br>
+uuid&nbsp;-&nbsp;(str)&nbsp;uuid&nbsp;of&nbsp;the&nbsp;target&nbsp;channel&nbsp;<br>
+all&nbsp;-&nbsp;(bool)&nbsp;to&nbsp;break&nbsp;all&nbsp;queued&nbsp;up&nbsp;audio&nbsp;files&nbsp;or&nbsp;only&nbsp;the&nbsp;current&nbsp;one</tt></dd></dl>
+
+<dl><dt><a name="InboundProtocol-apiUUIDBroadcast"><strong>apiUUIDBroadcast</strong></a>(self, uuid, path, leg<font color="#909090">='aleg'</font>, background<font color="#909090">=False</font>)</dt><dd><tt>Play&nbsp;a&nbsp;&lt;path&gt;&nbsp;file&nbsp;to&nbsp;a&nbsp;specific&nbsp;&lt;uuid&gt;&nbsp;call.&nbsp;<br>
+&nbsp;<br>
+uuid&nbsp;--&nbsp;(str)&nbsp;uuid&nbsp;of&nbsp;the&nbsp;target&nbsp;channel<br>
+path&nbsp;--&nbsp;(str)&nbsp;path&nbsp;of&nbsp;the&nbsp;file&nbsp;to&nbsp;be&nbsp;played<br>
+leg&nbsp;--&nbsp;(str)&nbsp;on&nbsp;which&nbsp;leg&nbsp;to&nbsp;play&nbsp;file&nbsp;possible&nbsp;options&nbsp;-&nbsp;aleg,bleg,both&nbsp;defaults&nbsp;to&nbsp;aleg</tt></dd></dl>
+
+<dl><dt><a name="InboundProtocol-apiUUIDChat"><strong>apiUUIDChat</strong></a>(self, uuid, msg, background<font color="#909090">=False</font>)</dt><dd><tt>Send&nbsp;a&nbsp;chat&nbsp;message&nbsp;to&nbsp;target&nbsp;channel<br>
+&nbsp;<br>
+uuid&nbsp;--&nbsp;(str)&nbsp;uuid&nbsp;of&nbsp;the&nbsp;target&nbsp;channel<br>
+msg&nbsp;--&nbsp;(str)&nbsp;chat&nbsp;message&nbsp;to&nbsp;be&nbsp;sent</tt></dd></dl>
+
+<dl><dt><a name="InboundProtocol-apiUUIDDeflect"><strong>apiUUIDDeflect</strong></a>(self, uuid, uri, background<font color="#909090">=False</font>)</dt><dd><tt>Deflect&nbsp;an&nbsp;answered&nbsp;SIP&nbsp;call&nbsp;off&nbsp;of&nbsp;FreeSWITCH&nbsp;by&nbsp;sending&nbsp;the&nbsp;REFER&nbsp;method.&nbsp;<br>
+&nbsp;<br>
+uuid_deflect&nbsp;waits&nbsp;for&nbsp;the&nbsp;final&nbsp;response&nbsp;from&nbsp;the&nbsp;far&nbsp;end&nbsp;to&nbsp;be&nbsp;reported.&nbsp;<br>
+It&nbsp;returns&nbsp;the&nbsp;sip&nbsp;fragment&nbsp;from&nbsp;that&nbsp;response&nbsp;as&nbsp;the&nbsp;text&nbsp;in&nbsp;the&nbsp;FreeSWITCH&nbsp;response&nbsp;to&nbsp;uuid_deflect.&nbsp;<br>
+If&nbsp;the&nbsp;far&nbsp;end&nbsp;reports&nbsp;the&nbsp;REFER&nbsp;was&nbsp;successful,&nbsp;then&nbsp;FreeSWITCH&nbsp;will&nbsp;issue&nbsp;a&nbsp;bye&nbsp;on&nbsp;the&nbsp;channel.&nbsp;<br>
+&nbsp;<br>
+uuid&nbsp;--&nbsp;(str)&nbsp;uuid&nbsp;of&nbsp;the&nbsp;target&nbsp;channel&nbsp;<br>
+uri&nbsp;--&nbsp;(str)&nbsp;destination&nbsp;sip&nbsp;URI</tt></dd></dl>
+
+<dl><dt><a name="InboundProtocol-apiUUIDDisplace"><strong>apiUUIDDisplace</strong></a>(self, uuid, switch, path, limit, mux<font color="#909090">=True</font>, background<font color="#909090">=False</font>)</dt><dd><tt>Displace&nbsp;the&nbsp;audio&nbsp;for&nbsp;the&nbsp;target&nbsp;&lt;uuid&gt;&nbsp;with&nbsp;the&nbsp;specified&nbsp;audio&nbsp;&lt;path&gt;.&nbsp;<br>
+&nbsp;<br>
+uuid&nbsp;--&nbsp;(str)&nbsp;uuid&nbsp;of&nbsp;the&nbsp;target&nbsp;channel&nbsp;<br>
+switch&nbsp;--&nbsp;(str)&nbsp;possible&nbsp;options&nbsp;are&nbsp;start,stop<br>
+path&nbsp;--&nbsp;(str)&nbsp;path&nbsp;of&nbsp;the&nbsp;file&nbsp;to&nbsp;be&nbsp;played&nbsp;<br>
+limit&nbsp;--&nbsp;(int/str)&nbsp;number&nbsp;of&nbsp;seconds&nbsp;before&nbsp;terminating&nbsp;the&nbsp;displacement&nbsp;<br>
+mux&nbsp;--&nbsp;(bool)&nbsp;cause&nbsp;the&nbsp;original&nbsp;audio&nbsp;to&nbsp;be&nbsp;mixed,&nbsp;i.e.&nbsp;you&nbsp;can&nbsp;still&nbsp;converse&nbsp;with&nbsp;the&nbsp;other&nbsp;party&nbsp;while&nbsp;the&nbsp;file&nbsp;is&nbsp;playing</tt></dd></dl>
+
+<dl><dt><a name="InboundProtocol-apiUUIDExists"><strong>apiUUIDExists</strong></a>(self, uuid, background<font color="#909090">=False</font>)</dt><dd><tt>Check&nbsp;if&nbsp;a&nbsp;given&nbsp;uuid&nbsp;exists&nbsp;<br>
+&nbsp;<br>
+uuid&nbsp;--&nbsp;(str)&nbsp;uuid&nbsp;of&nbsp;the&nbsp;target&nbsp;channel</tt></dd></dl>
+
+<dl><dt><a name="InboundProtocol-apiUUIDFlushDTMF"><strong>apiUUIDFlushDTMF</strong></a>(self, uuid, background<font color="#909090">=False</font>)</dt><dd><tt>Flush&nbsp;queued&nbsp;DTMF&nbsp;digits&nbsp;<br>
+&nbsp;<br>
+uuid&nbsp;--&nbsp;(str)&nbsp;uuid&nbsp;of&nbsp;the&nbsp;target&nbsp;channel</tt></dd></dl>
+
+<dl><dt><a name="InboundProtocol-apiUUIDHold"><strong>apiUUIDHold</strong></a>(self, uuid, off<font color="#909090">=False</font>, background<font color="#909090">=False</font>)</dt><dd><tt>Place&nbsp;a&nbsp;call&nbsp;on&nbsp;hold<br>
+&nbsp;<br>
+uuid&nbsp;--&nbsp;(str)&nbsp;uuid&nbsp;of&nbsp;the&nbsp;target&nbsp;channel<br>
+off&nbsp;--&nbsp;(bool)&nbsp;turn&nbsp;on&nbsp;or&nbsp;turn&nbsp;off&nbsp;hold</tt></dd></dl>
+
+<dl><dt><a name="InboundProtocol-apiUUIDKill"><strong>apiUUIDKill</strong></a>(self, uuid, cause<font color="#909090">=''</font>, background<font color="#909090">=False</font>)</dt><dd><tt>Kill&nbsp;a&nbsp;given&nbsp;channel<br>
+&nbsp;<br>
+uuid&nbsp;--&nbsp;(str)&nbsp;uuid&nbsp;of&nbsp;the&nbsp;target&nbsp;channel<br>
+cause&nbsp;--&nbsp;(str)&nbsp;hangup&nbsp;reason</tt></dd></dl>
+
+<dl><dt><a name="InboundProtocol-apiUUIDMedia"><strong>apiUUIDMedia</strong></a>(self, uuid, off<font color="#909090">=False</font>, background<font color="#909090">=False</font>)</dt><dd><tt>Reinvite&nbsp;a&nbsp;channel&nbsp;bridging&nbsp;media&nbsp;<br>
+&nbsp;<br>
+uuid&nbsp;--&nbsp;(str)&nbsp;uuid&nbsp;of&nbsp;the&nbsp;target&nbsp;channel<br>
+off&nbsp;--&nbsp;(bool)</tt></dd></dl>
+
+<dl><dt><a name="InboundProtocol-apiUUIDPark"><strong>apiUUIDPark</strong></a>(self, uuid, background<font color="#909090">=False</font>)</dt><dd><tt>Park&nbsp;a&nbsp;given&nbsp;channel<br>
+&nbsp;<br>
+uuid&nbsp;--&nbsp;(str)&nbsp;uuid&nbsp;of&nbsp;the&nbsp;target&nbsp;channel</tt></dd></dl>
+
+<dl><dt><a name="InboundProtocol-apiUUIDSendDTMF"><strong>apiUUIDSendDTMF</strong></a>(self, uuid, dtmf, background<font color="#909090">=False</font>)</dt><dd><tt>Send&nbsp;dtmf&nbsp;to&nbsp;given&nbsp;channel&nbsp;<br>
+&nbsp;<br>
+uuid&nbsp;--&nbsp;(str)&nbsp;uuid&nbsp;of&nbsp;the&nbsp;target&nbsp;channel<br>
+dtmf&nbsp;--&nbsp;(str)&nbsp;DTMF&nbsp;data&nbsp;to&nbsp;be&nbsp;sent</tt></dd></dl>
+
+<dl><dt><a name="InboundProtocol-apiUnload"><strong>apiUnload</strong></a>(self, module_name, background<font color="#909090">=False</font>)</dt><dd><tt>Unload&nbsp;external&nbsp;module&nbsp;<br>
+&nbsp;<br>
+module_name&nbsp;--&nbsp;(str)&nbsp;name&nbsp;of&nbsp;the&nbsp;module&nbsp;to&nbsp;unload</tt></dd></dl>
+
+<dl><dt><a name="InboundProtocol-apiVersion"><strong>apiVersion</strong></a>(self, background<font color="#909090">=False</font>)</dt><dd><tt>Fetch&nbsp;FreeSWITCH&nbsp;version</tt></dd></dl>
+
+<dl><dt><a name="InboundProtocol-bridge"><strong>bridge</strong></a>(self, endpoints<font color="#909090">=[]</font>, uuid<font color="#909090">=''</font>, lock<font color="#909090">=True</font>)</dt><dd><tt>Bridge&nbsp;and&nbsp;endpoint&nbsp;to&nbsp;given&nbsp;channel&nbsp;<br>
+&nbsp;<br>
+endpoints&nbsp;--&nbsp;(list)&nbsp;list&nbsp;of&nbsp;endpoint&nbsp;FreeSWITCH&nbsp;URIs</tt></dd></dl>
+
+<dl><dt><a name="InboundProtocol-connectionMade"><strong>connectionMade</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="InboundProtocol-deregisterEvent"><strong>deregisterEvent</strong></a>(self, ecb)</dt><dd><tt>Deregister&nbsp;a&nbsp;callback&nbsp;for&nbsp;the&nbsp;given&nbsp;event<br>
+&nbsp;<br>
+ecb&nbsp;--&nbsp;(EventCallback)&nbsp;instance&nbsp;of&nbsp;EventCallback&nbsp;object</tt></dd></dl>
+
+<dl><dt><a name="InboundProtocol-disconnectNotice"><strong>disconnectNotice</strong></a>(self)</dt><dd><tt>Handle&nbsp;disconnect&nbsp;notice</tt></dd></dl>
+
+<dl><dt><a name="InboundProtocol-disconnectNoticeReceived"><strong>disconnectNoticeReceived</strong></a>(self, msg)</dt><dd><tt>Override&nbsp;this&nbsp;to&nbsp;receive&nbsp;disconnect&nbsp;notice&nbsp;from&nbsp;freeswitch</tt></dd></dl>
+
+<dl><dt><a name="InboundProtocol-dispacthEvent"><strong>dispacthEvent</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="InboundProtocol-hangup"><strong>hangup</strong></a>(self, uuid<font color="#909090">=''</font>, lock<font color="#909090">=True</font>)</dt><dd><tt>Hangup&nbsp;current&nbsp;channel</tt></dd></dl>
+
+<dl><dt><a name="InboundProtocol-inspectMessage"><strong>inspectMessage</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="InboundProtocol-lineReceived"><strong>lineReceived</strong></a>(self, line)</dt></dl>
+
+<dl><dt><a name="InboundProtocol-myevents"><strong>myevents</strong></a>(self, uuid<font color="#909090">=''</font>)</dt><dd><tt>Tie&nbsp;up&nbsp;the&nbsp;connection&nbsp;to&nbsp;particular&nbsp;channel&nbsp;events</tt></dd></dl>
+
+<dl><dt><a name="InboundProtocol-needToSubscribe"><strong>needToSubscribe</strong></a>(self, event)</dt><dd><tt>Decide&nbsp;if&nbsp;we&nbsp;need&nbsp;to&nbsp;subscribe&nbsp;to&nbsp;an&nbsp;event&nbsp;or&nbsp;not&nbsp;by&nbsp;comparing&nbsp;the&nbsp;event&nbsp;provided&nbsp;against&nbsp;already&nbsp;subscribeEvents<br>
+&nbsp;<br>
+event&nbsp;--&nbsp;(str)&nbsp;event&nbsp;name&nbsp;<br>
+&nbsp;<br>
+retruns&nbsp;bool</tt></dd></dl>
+
+<dl><dt><a name="InboundProtocol-onAPIReply"><strong>onAPIReply</strong></a>(self)</dt><dd><tt>Handle&nbsp;API&nbsp;reply</tt></dd></dl>
+
+<dl><dt><a name="InboundProtocol-onBackgroundJob"><strong>onBackgroundJob</strong></a>(self, message, df)</dt></dl>
+
+<dl><dt><a name="InboundProtocol-onBackgroundJobFinalEvent"><strong>onBackgroundJobFinalEvent</strong></a>(self, event)</dt></dl>
+
+<dl><dt><a name="InboundProtocol-onCommandReply"><strong>onCommandReply</strong></a>(self)</dt><dd><tt>Handle&nbsp;CommandReply</tt></dd></dl>
+
+<dl><dt><a name="InboundProtocol-onConnect"><strong>onConnect</strong></a>(self)</dt><dd><tt>Channel&nbsp;Information&nbsp;is&nbsp;ready&nbsp;to&nbsp;be&nbsp;read.</tt></dd></dl>
+
+<dl><dt><a name="InboundProtocol-onEvent"><strong>onEvent</strong></a>(self)</dt><dd><tt>Handle&nbsp;a&nbsp;new&nbsp;event</tt></dd></dl>
+
+<dl><dt><a name="InboundProtocol-playAndGetDigits"><strong>playAndGetDigits</strong></a>(self, min, max, tries<font color="#909090">=3</font>, timeout<font color="#909090">=4000</font>, terminators<font color="#909090">='#'</font>, filename<font color="#909090">=''</font>, invalidfile<font color="#909090">=''</font>, varname<font color="#909090">=''</font>, regexp<font color="#909090">=r'\d'</font>, uuid<font color="#909090">=''</font>, lock<font color="#909090">=True</font>)</dt><dd><tt>Play&nbsp;the&nbsp;given&nbsp;sound&nbsp;file&nbsp;and&nbsp;get&nbsp;back&nbsp;caller's&nbsp;DTMF<br>
+min&nbsp;--&nbsp;(int)&nbsp;minimum&nbsp;digits&nbsp;length<br>
+max&nbsp;--&nbsp;(int)&nbsp;maximum&nbsp;digits&nbsp;length<br>
+tires&nbsp;--&nbsp;(int)&nbsp;number&nbsp;of&nbsp;times&nbsp;to&nbsp;play&nbsp;the&nbsp;audio&nbsp;file&nbsp;default&nbsp;is&nbsp;3<br>
+timeout&nbsp;--&nbsp;(int)&nbsp;time&nbsp;to&nbsp;wait&nbsp;after&nbsp;fileblack&nbsp;in&nbsp;milliseconds&nbsp;.&nbsp;default&nbsp;is&nbsp;4000<br>
+filename&nbsp;--&nbsp;(str)&nbsp;name&nbsp;of&nbsp;the&nbsp;audio&nbsp;file&nbsp;to&nbsp;be&nbsp;played&nbsp;<br>
+varname&nbsp;--&nbsp;(str)&nbsp;DTMF&nbsp;digit&nbsp;value&nbsp;will&nbsp;be&nbsp;set&nbsp;as&nbsp;value&nbsp;to&nbsp;the&nbsp;variable&nbsp;of&nbsp;this&nbsp;name<br>
+regexp&nbsp;--&nbsp;(str)&nbsp;regurlar&nbsp;expression&nbsp;to&nbsp;match&nbsp;the&nbsp;DTMF&nbsp;<br>
+uuid&nbsp;--&nbsp;(str)&nbsp;uuid&nbsp;of&nbsp;the&nbsp;target&nbsp;channel&nbsp;<br>
+&nbsp;<br>
+Make&nbsp;sure&nbsp;CHANNEL_EXECUTE_COMPLETE&nbsp;&nbsp;event&nbsp;is&nbsp;subcribed&nbsp;otherwise&nbsp;finalDF&nbsp;will&nbsp;never&nbsp;get&nbsp;invoked</tt></dd></dl>
+
+<dl><dt><a name="InboundProtocol-playback"><strong>playback</strong></a>(self, path, terminators<font color="#909090">=None</font>, uuid<font color="#909090">=''</font>, lock<font color="#909090">=True</font>)</dt><dd><tt>Playback&nbsp;given&nbsp;file&nbsp;name&nbsp;on&nbsp;channel<br>
+&nbsp;<br>
+path&nbsp;--&nbsp;(str)&nbsp;path&nbsp;of&nbsp;the&nbsp;file&nbsp;to&nbsp;be&nbsp;played&nbsp;'</tt></dd></dl>
+
+<dl><dt><a name="InboundProtocol-rawDataReceived"><strong>rawDataReceived</strong></a>(self, data)</dt></dl>
+
+<dl><dt><a name="InboundProtocol-record"><strong>record</strong></a>(self, path, time_limit_secs<font color="#909090">=' '</font>, silence_thresh<font color="#909090">=' '</font>, silence_hits<font color="#909090">=' '</font>, terminators<font color="#909090">=''</font>, uuid<font color="#909090">=''</font>, lock<font color="#909090">=True</font>)</dt></dl>
+
+<dl><dt><a name="InboundProtocol-registerEvent"><strong>registerEvent</strong></a>(self, event, subscribe, function, *args, **kwargs)</dt><dd><tt>Register&nbsp;a&nbsp;callback&nbsp;for&nbsp;the&nbsp;event&nbsp;<br>
+event&nbsp;--&nbsp;(str)&nbsp;Event&nbsp;name&nbsp;as&nbsp;sent&nbsp;by&nbsp;FreeSWITCH<br>
+subsribe&nbsp;--&nbsp;(bool)&nbsp;if&nbsp;True&nbsp;subscribe&nbsp;to&nbsp;this&nbsp;event<br>
+function&nbsp;--&nbsp;callback&nbsp;function&nbsp;accepts&nbsp;a&nbsp;event&nbsp;dictionary&nbsp;as&nbsp;first&nbsp;argument<br>
+args&nbsp;--&nbsp;argumnet&nbsp;to&nbsp;be&nbsp;passed&nbsp;to&nbsp;callback&nbsp;function<br>
+kwargs&nbsp;--&nbsp;keyword&nbsp;arguments&nbsp;to&nbsp;be&nbsp;passed&nbsp;to&nbsp;callback&nbsp;function<br>
+&nbsp;<br>
+returns&nbsp;instance&nbsp;of&nbsp;&nbsp;EventCallback&nbsp;,&nbsp;keep&nbsp;a&nbsp;reference&nbsp;of&nbsp;this&nbsp;around&nbsp;if&nbsp;you&nbsp;want&nbsp;to&nbsp;deregister&nbsp;it&nbsp;later</tt></dd></dl>
+
+<dl><dt><a name="InboundProtocol-say"><strong>say</strong></a>(self, module<font color="#909090">='en'</font>, say_type<font color="#909090">='NUMBER'</font>, say_method<font color="#909090">='PRONOUNCED'</font>, text<font color="#909090">=''</font>, uuid<font color="#909090">=''</font>, lock<font color="#909090">=True</font>)</dt></dl>
+
+<dl><dt><a name="InboundProtocol-schedHangup"><strong>schedHangup</strong></a>(self, secs, uuid, lock<font color="#909090">=True</font>)</dt><dd><tt>Schedule&nbsp;hangup&nbsp;<br>
+&nbsp;<br>
+seconds&nbsp;--&nbsp;(int/str)&nbsp;seconds&nbsp;to&nbsp;wait&nbsp;before&nbsp;hangup</tt></dd></dl>
+
+<dl><dt><a name="InboundProtocol-sendAPI"><strong>sendAPI</strong></a>(self, apicmd, background<font color="#909090">=False</font>)</dt></dl>
+
+<dl><dt><a name="InboundProtocol-sendBGAPI"><strong>sendBGAPI</strong></a>(self, apicmd)</dt></dl>
+
+<dl><dt><a name="InboundProtocol-sendCommand"><strong>sendCommand</strong></a>(self, cmd, args<font color="#909090">=''</font>, uuid<font color="#909090">=''</font>, lock<font color="#909090">=True</font>)</dt></dl>
+
+<dl><dt><a name="InboundProtocol-sendData"><strong>sendData</strong></a>(self, cmd, args<font color="#909090">=''</font>)</dt></dl>
+
+<dl><dt><a name="InboundProtocol-sendMsg"><strong>sendMsg</strong></a>(self, msg)</dt><dd><tt>Send&nbsp;message&nbsp;to&nbsp;FreeSWITCH<br>
+&nbsp;<br>
+msg&nbsp;--&nbsp;(event)&nbsp;Event&nbsp;object</tt></dd></dl>
+
+<dl><dt><a name="InboundProtocol-set"><strong>set</strong></a>(self, variable, value, uuid<font color="#909090">=''</font>, lock<font color="#909090">=True</font>)</dt><dd><tt>Set&nbsp;a&nbsp;channel&nbsp;variable&nbsp;<br>
+&nbsp;<br>
+variable&nbsp;--&nbsp;(str)&nbsp;name&nbsp;of&nbsp;the&nbsp;channel&nbsp;variable<br>
+value&nbsp;--&nbsp;(str)&nbsp;value&nbsp;of&nbsp;the&nbsp;channel&nbsp;variable</tt></dd></dl>
+
+<dl><dt><a name="InboundProtocol-subscribeEvents"><strong>subscribeEvents</strong></a>(self, events)</dt><dd><tt>Subcribe&nbsp;to&nbsp;FreeSWITCH&nbsp;events.<br>
+&nbsp;<br>
+events&nbsp;-(str)&nbsp;'all'&nbsp;&nbsp;sucbscribe&nbsp;to&nbsp;all&nbsp;events&nbsp;or&nbsp;event&nbsp;names&nbsp;seprated&nbsp;by&nbsp;space</tt></dd></dl>
+
+<hr>
+Data and other attributes inherited from <a href="pyswitch.fsprotocol.html#FSProtocol">FSProtocol</a>:<br>
+<dl><dt><strong>delimiter</strong> = '<font color="#c040c0">\n\n</font>'</dl>
+
+<dl><dt><strong>jobType</strong> = False</dl>
+
+<dl><dt><strong>state</strong> = 'READ_CONTENT'</dl>
+
+<hr>
+Methods inherited from <a href="twisted.protocols.basic.html#LineReceiver">LineReceiver</a>:<br>
+<dl><dt><a name="InboundProtocol-clearLineBuffer"><strong>clearLineBuffer</strong></a>(self)</dt><dd><tt>Clear&nbsp;buffered&nbsp;data.<br>
+&nbsp;<br>
+@return:&nbsp;All&nbsp;of&nbsp;the&nbsp;cleared&nbsp;buffered&nbsp;data.<br>
+@rtype:&nbsp;C{str}</tt></dd></dl>
+
+<dl><dt><a name="InboundProtocol-dataReceived"><strong>dataReceived</strong></a>(self, data)</dt><dd><tt>Protocol.dataReceived.<br>
+Translates&nbsp;bytes&nbsp;into&nbsp;lines,&nbsp;and&nbsp;calls&nbsp;lineReceived&nbsp;(or<br>
+rawDataReceived,&nbsp;depending&nbsp;on&nbsp;mode.)</tt></dd></dl>
+
+<dl><dt><a name="InboundProtocol-lineLengthExceeded"><strong>lineLengthExceeded</strong></a>(self, line)</dt><dd><tt>Called&nbsp;when&nbsp;the&nbsp;maximum&nbsp;line&nbsp;length&nbsp;has&nbsp;been&nbsp;reached.<br>
+Override&nbsp;if&nbsp;it&nbsp;needs&nbsp;to&nbsp;be&nbsp;dealt&nbsp;with&nbsp;in&nbsp;some&nbsp;special&nbsp;way.<br>
+&nbsp;<br>
+The&nbsp;argument&nbsp;'line'&nbsp;contains&nbsp;the&nbsp;remainder&nbsp;of&nbsp;the&nbsp;buffer,&nbsp;starting<br>
+with&nbsp;(at&nbsp;least&nbsp;some&nbsp;part)&nbsp;of&nbsp;the&nbsp;line&nbsp;which&nbsp;is&nbsp;too&nbsp;long.&nbsp;This&nbsp;may<br>
+be&nbsp;more&nbsp;than&nbsp;one&nbsp;line,&nbsp;or&nbsp;may&nbsp;be&nbsp;only&nbsp;the&nbsp;initial&nbsp;portion&nbsp;of&nbsp;the<br>
+line.</tt></dd></dl>
+
+<dl><dt><a name="InboundProtocol-sendLine"><strong>sendLine</strong></a>(self, line)</dt><dd><tt>Sends&nbsp;a&nbsp;line&nbsp;to&nbsp;the&nbsp;other&nbsp;end&nbsp;of&nbsp;the&nbsp;connection.</tt></dd></dl>
+
+<dl><dt><a name="InboundProtocol-setLineMode"><strong>setLineMode</strong></a>(self, extra<font color="#909090">=''</font>)</dt><dd><tt>Sets&nbsp;the&nbsp;line-mode&nbsp;of&nbsp;this&nbsp;receiver.<br>
+&nbsp;<br>
+If&nbsp;you&nbsp;are&nbsp;calling&nbsp;this&nbsp;from&nbsp;a&nbsp;rawDataReceived&nbsp;callback,<br>
+you&nbsp;can&nbsp;pass&nbsp;in&nbsp;extra&nbsp;unhandled&nbsp;data,&nbsp;and&nbsp;that&nbsp;data&nbsp;will<br>
+be&nbsp;parsed&nbsp;for&nbsp;lines.&nbsp;&nbsp;Further&nbsp;data&nbsp;received&nbsp;will&nbsp;be&nbsp;sent<br>
+to&nbsp;lineReceived&nbsp;rather&nbsp;than&nbsp;rawDataReceived.<br>
+&nbsp;<br>
+Do&nbsp;not&nbsp;pass&nbsp;extra&nbsp;data&nbsp;if&nbsp;calling&nbsp;this&nbsp;function&nbsp;from<br>
+within&nbsp;a&nbsp;lineReceived&nbsp;callback.</tt></dd></dl>
+
+<dl><dt><a name="InboundProtocol-setRawMode"><strong>setRawMode</strong></a>(self)</dt><dd><tt>Sets&nbsp;the&nbsp;raw&nbsp;mode&nbsp;of&nbsp;this&nbsp;receiver.<br>
+Further&nbsp;data&nbsp;received&nbsp;will&nbsp;be&nbsp;sent&nbsp;to&nbsp;rawDataReceived&nbsp;rather<br>
+than&nbsp;lineReceived.</tt></dd></dl>
+
+<hr>
+Data and other attributes inherited from <a href="twisted.protocols.basic.html#LineReceiver">LineReceiver</a>:<br>
+<dl><dt><strong>MAX_LENGTH</strong> = 16384</dl>
+
+<dl><dt><strong>line_mode</strong> = 1</dl>
+
+<hr>
+Methods inherited from <a href="twisted.internet.protocol.html#Protocol">Protocol</a>:<br>
+<dl><dt><a name="InboundProtocol-connectionLost"><strong>connectionLost</strong></a>(self, reason<font color="#909090">=&lt;twisted.python.failure.Failure &lt;class 'twisted.internet.error.ConnectionDone'&gt;&gt;</font>)</dt><dd><tt>Called&nbsp;when&nbsp;the&nbsp;connection&nbsp;is&nbsp;shut&nbsp;down.<br>
+&nbsp;<br>
+Clear&nbsp;any&nbsp;circular&nbsp;references&nbsp;here,&nbsp;and&nbsp;any&nbsp;external&nbsp;references<br>
+to&nbsp;this&nbsp;Protocol.&nbsp;&nbsp;The&nbsp;connection&nbsp;has&nbsp;been&nbsp;closed.<br>
+&nbsp;<br>
+@type&nbsp;reason:&nbsp;L{twisted.python.failure.Failure}</tt></dd></dl>
+
+<hr>
+Data and other attributes inherited from <a href="twisted.internet.protocol.html#Protocol">Protocol</a>:<br>
+<dl><dt><strong>__implemented__</strong> = &lt;implementedBy twisted.internet.protocol.Protocol&gt;</dl>
+
+<hr>
+Methods inherited from <a href="twisted.internet.protocol.html#BaseProtocol">BaseProtocol</a>:<br>
+<dl><dt><a name="InboundProtocol-makeConnection"><strong>makeConnection</strong></a>(self, transport)</dt><dd><tt>Make&nbsp;a&nbsp;connection&nbsp;to&nbsp;a&nbsp;transport&nbsp;and&nbsp;a&nbsp;server.<br>
+&nbsp;<br>
+This&nbsp;sets&nbsp;the&nbsp;'transport'&nbsp;attribute&nbsp;of&nbsp;this&nbsp;Protocol,&nbsp;and&nbsp;calls&nbsp;the<br>
+<a href="#InboundProtocol-connectionMade">connectionMade</a>()&nbsp;callback.</tt></dd></dl>
+
+<hr>
+Data and other attributes inherited from <a href="twisted.internet.protocol.html#BaseProtocol">BaseProtocol</a>:<br>
+<dl><dt><strong>__providedBy__</strong> = &lt;zope.interface.declarations.Declaration object at 0x027D5BF0&gt;</dl>
+
+<dl><dt><strong>connected</strong> = 0</dl>
+
+<dl><dt><strong>transport</strong> = None</dl>
+
+<hr>
+Methods inherited from <a href="twisted.protocols.basic.html#_PauseableMixin">_PauseableMixin</a>:<br>
+<dl><dt><a name="InboundProtocol-pauseProducing"><strong>pauseProducing</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="InboundProtocol-resumeProducing"><strong>resumeProducing</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="InboundProtocol-stopProducing"><strong>stopProducing</strong></a>(self)</dt></dl>
+
+<hr>
+Data and other attributes inherited from <a href="twisted.protocols.basic.html#_PauseableMixin">_PauseableMixin</a>:<br>
+<dl><dt><strong>paused</strong> = False</dl>
+
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>__file__</strong> = r'C:\Python25\lib\site-packages\pyswitch\inbound.pyc'<br>
+<strong>__name__</strong> = 'pyswitch.inbound'<br>
+<strong>log</strong> = &lt;logging.Logger instance at 0x0274A8F0&gt;<br>
+<strong>reactor</strong> = &lt;twisted.internet.selectreactor.SelectReactor object at 0x02D7F710&gt;</td></tr></table>
+</body></html>
