@@ -69,7 +69,7 @@ from a Twisted process.""",
 	### Now the actual set up call
 	setup (
 		name = "pyswitch",
-		version = '0.1',
+		version = '0.1a',
 		url = "http://pyswitch.sf.net",
 		description = "Twisted Protocols for interaction with the FreeSWITCH",
 		author = "Godson Gera",

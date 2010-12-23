@@ -15,7 +15,7 @@ __email__ = 'godson.g@gmail.com',
 __copyright__ = 'Copyright 2010, Godson Gera'
 __credits__ = ['FreeSWITCH Team', 'Twisted Team']
 __license__ = 'GPL'
-__version__ = '0.1'
+__version__ = '0.1a'
 
 import inbound
 import outbound
