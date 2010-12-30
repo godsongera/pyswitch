@@ -11,7 +11,7 @@ class InboundTest:
     def onLogin(self, protocol):
         log.info("successfully logged in")
         self.eventsocket = protocol
-        df = self.eventsocket.subscribeEvent("all")
+        df = self.eventsocket.subscribeEvents("all")
         df.addCallbacks(self.onEventsSucess, self.onEventsFailure)
         
         

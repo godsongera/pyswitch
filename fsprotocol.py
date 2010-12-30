@@ -294,12 +294,15 @@ class FSProtocol(basic.LineReceiver):
         return backgoundJobDeferred
         
     def onBackgroundJob(self, message, df):        
+        ecb = self.registerEvent("BACKGROUND_JOB", True,  self.onBackgroundJobFinalEvent,)
+        df.ecb = ecb
         self.pendingBackgoundJobs[message["Reply-Text"].split(":")[1].strip()] = df       
-        self.registerEvent("BACKGROUND_JOB", True,  self.onBackgroundJobFinalEvent)
+        
         
     def onBackgroundJobFinalEvent(self, event):
         self.rawdataCache = ''
         self.currentDeferred = self.pendingBackgoundJobs.pop(event['Job-UUID'])
+        self.deregisterEvent(self.currentDeferred.ecb)
         self.contentLength = int(event['Content-Length'].strip())
         if self.contentLength > 0:
             log.debug("Entering raw mode to read the background job result")
