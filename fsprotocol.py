@@ -63,9 +63,8 @@ class FSProtocol(basic.LineReceiver):
     delimiter="\n\n"
     jobType = False
     state = "READ_CONTENT"
-    def __init__(self, *arg, **kwargs):
-        """Initialize FSProtocol arguments are ignored"""
-        #basic.LineOnlyReceiver.__init__(self)
+        
+    def connectionMade(self):
         self.contentCallbacks = {"auth/request":self.auth, 
                         "api/response":self.onAPIReply, 
                         "command/reply":self.onCommandReply, 
@@ -76,6 +75,16 @@ class FSProtocol(basic.LineReceiver):
         self.pendingBackgoundJobs = {}        
         self.eventCallbacks = []
         self.subscribedEvents = []
+        
+        log.info("Connected to FreeSWITCH")
+        
+    def connectionLost(self):
+        log.info("Cleaning up")
+        self.disconnectedFromFreeSWITCH()
+        
+    def disconnectedFromFreeSWITCH(self):
+        """Over-ride this to get notified of FreeSWITCH disconnection"""
+        pass 
         
     
     def registerEvent(self, event,subscribe, function, *args, **kwargs):
@@ -120,9 +129,6 @@ class FSProtocol(basic.LineReceiver):
             self.eventCallbacks.remove(ecb)
         except ValueError:
             log.error("%s already deregistered "%ecb)
-        
-    def connectionMade(self):
-        log.info("Connected to FreeSWITCH")
         
     def lineReceived(self, line):
         log.debug("Line In: %s"%line)        
@@ -328,7 +334,25 @@ class FSProtocol(basic.LineReceiver):
             return self.sendData("myevents %s"%uuid)
         else:
             return self.sendData("myevents")
+    
+    def apiConferenceDial(self, name, url, background=Ture):
+        """Dial the given url from conference 
         
+        name -- (str) name of the conference 
+        url -- (str) FreeSWITCH compatible call URL"""
+        cmd = 'conference %s dial %s'%(name, url)
+        return self.sendAPI(cmd, background)
+        
+    def apiConferenceKick(self,name, member, background=jobType):
+        """Kick the given member from conference 
+        
+        name -- (str) name of the conference 
+        member -- (str) member id or all or last 
+        """
+        cmd = "conference %s kick %s"%(name, member)
+        return self.sendAPI(cmd, background)
+        
+    
     def apiDomainExists(self, domain, background=jobType):
         cmd = "domain_exists %s"%domain
         return self.sendAPI(cmd, background)
@@ -616,6 +640,15 @@ class FSProtocol(basic.LineReceiver):
         endpoints = ','.join(endpoints)
         return self.sendCommand("bridge", endpoints, uuid, lock)
         
+    def conference(self, confname,  uuid='', lock=True):
+        """Connect the channel to give conference
+        
+        confname -- (str) conference name
+        """
+        cmd = "conference"
+        args = "confname"
+        self.sendCommand(cmd, args, uuid, lock)
+        
     def playback(self, path, terminators=None, uuid='', lock=True):
         """Playback given file name on channel
         
@@ -683,7 +716,7 @@ class FSProtocol(basic.LineReceiver):
             else:
                 finalDF.callback(None)
 
-    def schedHangup(self, secs, uuid, lock=True):
+    def schedHangup(self, secs, uuid='', lock=True):
         """Schedule hangup 
         
         seconds -- (int/str) seconds to wait before hangup 
@@ -695,7 +728,17 @@ class FSProtocol(basic.LineReceiver):
         terminators = terminators or 'none'
         self.set("playback_terminators", terminators)
         args = ' '.join([path, time_limit_secs, silence_thresh, silence_hits])        
-        return self.sendCommand("record", args)
+        return self.sendCommand("record", args, uuid, lock)
+        
+    #The following commands work on commercial mod_amd module 
+    def voice_start(self, uuid='', lock=True):
+        """Start AMD on current channel"""        
+        return self.sendCommand("voice_start", uuid=uuid, lock=lock)
+        
+    def voice_stop(self, uuid='', lock=True):
+        """Stop AMD on current channel"""
+        return self.sendCommand("voice_stop", uuid=uuid, lock=lock)
+        
         
     
 
