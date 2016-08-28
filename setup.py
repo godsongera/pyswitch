@@ -66,9 +66,9 @@ if __name__ == "__main__":
 
         setup(
         name = "pyswitch",
-        version = '0.1a',
+        version = '0.3',
         url = "http://pyswitch.sf.net",
-        download_url = "https://sourceforge.net/projects/pyswitch/", 
+        download_url = "https://sourceforge.net/projects/pyswitch/files/",
         description = "Twisted Protocols for interaction with the FreeSWITCH",
         author = "Godson Gera",
         author_email = "godson.g@gmail.com",

@@ -1,9 +1,9 @@
-
 #!/usr/bin/python
 
 from fsprotocol import *
 
 log = logging.getLogger("InbounSocket")
+
 
 class InboundProtocol(FSProtocol):
     """
@@ -34,6 +34,7 @@ class InboundProtocol(FSProtocol):
         if hasattr(self.factory, "loginDeferred"):
             self.factory.loginDeferred.errback(error)
         
+
 class InboundFactory(protocol.ClientFactory):
     """A factory for InboundSocketProtocol
     """
@@ -41,7 +42,6 @@ class InboundFactory(protocol.ClientFactory):
     def __init__(self, password):
         self.password = password
         self.loginDeferred = defer.Deferred()
-        
     
     def clientConnetionFailed(self, connector, reason):
         log.info("Failed to connect to FreeSWITCH")

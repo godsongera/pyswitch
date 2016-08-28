@@ -1,5 +1,5 @@
 
-<!doctype html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html><head><title>Python: module pyswitch.fsprotocol</title>
 </head><body bgcolor="#f0f0f8">
 
@@ -8,7 +8,7 @@
 <td valign=bottom>&nbsp;<br>
 <font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="pyswitch.html"><font color="#ffffff">pyswitch</font></a>.fsprotocol</strong></big></big></font></td
 ><td align=right valign=bottom
-><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:///C|/python25/lib/site-packages/pyswitch/fsprotocol.py">c:\python25\lib\site-packages\pyswitch\fsprotocol.py</a></font></td></tr></table>
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:///C:/python27/lib/site-packages/pyswitch/fsprotocol.py">c:\python27\lib\site-packages\pyswitch\fsprotocol.py</a></font></td></tr></table>
     <p></p>
 <p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
@@ -22,8 +22,10 @@
 </td><td width="25%" valign=top><a href="logging.html">logging</a><br>
 <a href="twisted.internet.protocol.html">twisted.internet.protocol</a><br>
 </td><td width="25%" valign=top><a href="sys.html">sys</a><br>
-<a href="urllib.html">urllib</a><br>
-</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<a href="traceback.html">traceback</a><br>
+</td><td width="25%" valign=top><a href="urllib.html">urllib</a><br>
+<a href="uuid.html">uuid</a><br>
+</td></tr></table></td></tr></table><p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
 <tr bgcolor="#ee77aa">
 <td colspan=3 valign=bottom>&nbsp;<br>
@@ -73,11 +75,11 @@ Data descriptors defined here:<br>
 </dl>
 <hr>
 Methods inherited from <a href="exceptions.html#Exception">Exception</a>:<br>
-<dl><dt><a name="CommandError-__init__"><strong>__init__</strong></a>(...)</dt><dd><tt>x.<a href="#CommandError-__init__">__init__</a>(...)&nbsp;initializes&nbsp;x;&nbsp;see&nbsp;x.__class__.__doc__&nbsp;for&nbsp;signature</tt></dd></dl>
+<dl><dt><a name="CommandError-__init__"><strong>__init__</strong></a>(...)</dt><dd><tt>x.<a href="#CommandError-__init__">__init__</a>(...)&nbsp;initializes&nbsp;x;&nbsp;see&nbsp;help(type(x))&nbsp;for&nbsp;signature</tt></dd></dl>
 
 <hr>
 Data and other attributes inherited from <a href="exceptions.html#Exception">Exception</a>:<br>
-<dl><dt><strong>__new__</strong> = &lt;built-in method __new__ of type object at 0x1E1CCBE8&gt;<dd><tt>T.<a href="#CommandError-__new__">__new__</a>(S,&nbsp;...)&nbsp;-&gt;&nbsp;a&nbsp;new&nbsp;object&nbsp;with&nbsp;type&nbsp;S,&nbsp;a&nbsp;subtype&nbsp;of&nbsp;T</tt></dl>
+<dl><dt><strong>__new__</strong> = &lt;built-in method __new__ of type object&gt;<dd><tt>T.<a href="#CommandError-__new__">__new__</a>(S,&nbsp;...)&nbsp;-&gt;&nbsp;a&nbsp;new&nbsp;object&nbsp;with&nbsp;type&nbsp;S,&nbsp;a&nbsp;subtype&nbsp;of&nbsp;T</tt></dl>
 
 <hr>
 Methods inherited from <a href="exceptions.html#BaseException">BaseException</a>:<br>
@@ -101,6 +103,8 @@ Use&nbsp;of&nbsp;negative&nbsp;indices&nbsp;is&nbsp;not&nbsp;supported.</tt></dd
 
 <dl><dt><a name="CommandError-__str__"><strong>__str__</strong></a>(...)</dt><dd><tt>x.<a href="#CommandError-__str__">__str__</a>()&nbsp;&lt;==&gt;&nbsp;str(x)</tt></dd></dl>
 
+<dl><dt><a name="CommandError-__unicode__"><strong>__unicode__</strong></a>(...)</dt></dl>
+
 <hr>
 Data descriptors inherited from <a href="exceptions.html#BaseException">BaseException</a>:<br>
 <dl><dt><strong>__dict__</strong></dt>
@@ -108,7 +112,6 @@ Data descriptors inherited from <a href="exceptions.html#BaseException">BaseExce
 <dl><dt><strong>args</strong></dt>
 </dl>
 <dl><dt><strong>message</strong></dt>
-<dd><tt>exception&nbsp;message</tt></dd>
 </dl>
 </td></tr></table> <p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
@@ -131,7 +134,7 @@ as&nbsp;you&nbsp;intend&nbsp;because&nbsp;by&nbsp;default&nbsp;it&nbsp;mangles&n
 "From&nbsp;".&nbsp;&nbsp;For&nbsp;more&nbsp;flexibility,&nbsp;use&nbsp;the&nbsp;flatten()&nbsp;method&nbsp;of&nbsp;a<br>
 Generator&nbsp;instance.</tt></dd></dl>
 
-<dl><dt><a name="Event-decodeMessage"><strong>decodeMessage</strong></a>(self)</dt><dd><tt>Rebuild&nbsp;the&nbsp;event&nbsp;headers&nbsp;with&nbsp;with&nbsp;URL&nbsp;format&nbsp;decoded&nbsp;values</tt></dd></dl>
+<dl><dt><a name="Event-decode"><strong>decode</strong></a>(self)</dt><dd><tt>Rebuild&nbsp;the&nbsp;event&nbsp;headers&nbsp;with&nbsp;with&nbsp;URL&nbsp;format&nbsp;decoded&nbsp;values</tt></dd></dl>
 
 <hr>
 Methods inherited from <a href="email.message.html#Message">Message</a>:<br>
@@ -146,7 +149,7 @@ Does&nbsp;not&nbsp;raise&nbsp;an&nbsp;exception&nbsp;if&nbsp;the&nbsp;header&nbs
 Return&nbsp;None&nbsp;if&nbsp;the&nbsp;header&nbsp;is&nbsp;missing&nbsp;instead&nbsp;of&nbsp;raising&nbsp;an&nbsp;exception.<br>
 &nbsp;<br>
 Note&nbsp;that&nbsp;if&nbsp;the&nbsp;header&nbsp;appeared&nbsp;multiple&nbsp;times,&nbsp;exactly&nbsp;which<br>
-occurrance&nbsp;gets&nbsp;returned&nbsp;is&nbsp;undefined.&nbsp;&nbsp;Use&nbsp;<a href="#Event-get_all">get_all</a>()&nbsp;to&nbsp;get&nbsp;all<br>
+occurrence&nbsp;gets&nbsp;returned&nbsp;is&nbsp;undefined.&nbsp;&nbsp;Use&nbsp;<a href="#Event-get_all">get_all</a>()&nbsp;to&nbsp;get&nbsp;all<br>
 the&nbsp;values&nbsp;matching&nbsp;a&nbsp;header&nbsp;field&nbsp;name.</tt></dd></dl>
 
 <dl><dt><a name="Event-__init__"><strong>__init__</strong></a>(self)</dt></dl>
@@ -166,7 +169,10 @@ This&nbsp;includes&nbsp;the&nbsp;headers,&nbsp;body,&nbsp;and&nbsp;envelope&nbsp
 name&nbsp;is&nbsp;the&nbsp;header&nbsp;field&nbsp;to&nbsp;add.&nbsp;&nbsp;keyword&nbsp;arguments&nbsp;can&nbsp;be&nbsp;used&nbsp;to&nbsp;set<br>
 additional&nbsp;parameters&nbsp;for&nbsp;the&nbsp;header&nbsp;field,&nbsp;with&nbsp;underscores&nbsp;converted<br>
 to&nbsp;dashes.&nbsp;&nbsp;Normally&nbsp;the&nbsp;parameter&nbsp;will&nbsp;be&nbsp;added&nbsp;as&nbsp;key="value"&nbsp;unless<br>
-value&nbsp;is&nbsp;None,&nbsp;in&nbsp;which&nbsp;case&nbsp;only&nbsp;the&nbsp;key&nbsp;will&nbsp;be&nbsp;added.<br>
+value&nbsp;is&nbsp;None,&nbsp;in&nbsp;which&nbsp;case&nbsp;only&nbsp;the&nbsp;key&nbsp;will&nbsp;be&nbsp;added.&nbsp;&nbsp;If&nbsp;a<br>
+parameter&nbsp;value&nbsp;contains&nbsp;non-ASCII&nbsp;characters&nbsp;it&nbsp;must&nbsp;be&nbsp;specified&nbsp;as&nbsp;a<br>
+three-tuple&nbsp;of&nbsp;(charset,&nbsp;language,&nbsp;value),&nbsp;in&nbsp;which&nbsp;case&nbsp;it&nbsp;will&nbsp;be<br>
+encoded&nbsp;according&nbsp;to&nbsp;<a href="http://www.rfc-editor.org/rfc/rfc2231.txt">RFC2231</a>&nbsp;rules.<br>
 &nbsp;<br>
 Example:<br>
 &nbsp;<br>
@@ -449,12 +455,61 @@ All&nbsp;the&nbsp;FreeSWITCH&nbsp;api&nbsp;and&nbsp;dptool&nbsp;commands&nbsp;ar
 </dl>
 <hr>
 Methods defined here:<br>
-<dl><dt><a name="FSProtocol-__init__"><strong>__init__</strong></a>(self, *arg, **kwargs)</dt><dd><tt>Initialize&nbsp;<a href="#FSProtocol">FSProtocol</a>&nbsp;arguments&nbsp;are&nbsp;ignored</tt></dd></dl>
-
 <dl><dt><a name="FSProtocol-answer"><strong>answer</strong></a>(self, uuid<font color="#909090">=''</font>, lock<font color="#909090">=True</font>)</dt><dd><tt>Answer&nbsp;cahnnel<br>
 &nbsp;<br>
 uuid&nbsp;--&nbsp;(str)&nbsp;uuid&nbsp;of&nbsp;target&nbsp;channel<br>
 lock&nbsp;--&nbsp;(bool)&nbsp;lock&nbsp;the&nbsp;channel&nbsp;until&nbsp;execution&nbsp;is&nbsp;finished</tt></dd></dl>
+
+<dl><dt><a name="FSProtocol-apiAvmd"><strong>apiAvmd</strong></a>(self, uuid, start<font color="#909090">=True</font>, background<font color="#909090">=False</font>)</dt><dd><tt>Execute&nbsp;avmd&nbsp;on&nbsp;provided&nbsp;channel.&nbsp;<br>
+uuid&nbsp;(str)&nbsp;--&nbsp;uuid&nbsp;of&nbsp;the&nbsp;target&nbsp;channel<br>
+start&nbsp;(bool)&nbsp;&nbsp;--&nbsp;If&nbsp;True&nbsp;avmd&nbsp;will&nbsp;start&nbsp;if&nbsp;false&nbsp;avmd&nbsp;will&nbsp;be&nbsp;stopped</tt></dd></dl>
+
+<dl><dt><a name="FSProtocol-apiConferenceDial"><strong>apiConferenceDial</strong></a>(self, name, url, background<font color="#909090">=False</font>)</dt><dd><tt>Dial&nbsp;the&nbsp;given&nbsp;url&nbsp;from&nbsp;conference&nbsp;<br>
+&nbsp;<br>
+name&nbsp;--&nbsp;(str)&nbsp;name&nbsp;of&nbsp;the&nbsp;conference&nbsp;<br>
+url&nbsp;--&nbsp;(str)&nbsp;FreeSWITCH&nbsp;compatible&nbsp;call&nbsp;URL</tt></dd></dl>
+
+<dl><dt><a name="FSProtocol-apiConferenceKick"><strong>apiConferenceKick</strong></a>(self, name, member, background<font color="#909090">=False</font>)</dt><dd><tt>Kick&nbsp;the&nbsp;given&nbsp;member&nbsp;from&nbsp;conference&nbsp;<br>
+&nbsp;<br>
+name&nbsp;--&nbsp;(str)&nbsp;name&nbsp;of&nbsp;the&nbsp;conference&nbsp;<br>
+member&nbsp;--&nbsp;(str)&nbsp;member&nbsp;id&nbsp;or&nbsp;all&nbsp;or&nbsp;last</tt></dd></dl>
+
+<dl><dt><a name="FSProtocol-apiConferenceList"><strong>apiConferenceList</strong></a>(self, name<font color="#909090">=None</font>, delim<font color="#909090">=None</font>, background<font color="#909090">=False</font>)</dt><dd><tt>List&nbsp;the&nbsp;conference&nbsp;<br>
+name&nbsp;-&nbsp;(str)&nbsp;name&nbsp;of&nbsp;the&nbsp;conference.&nbsp;if&nbsp;not&nbsp;given&nbsp;all&nbsp;the&nbsp;conferences&nbsp;will&nbsp;be&nbsp;listed&nbsp;<br>
+delim&nbsp;-&nbsp;(str)&nbsp;delimiter&nbsp;to&nbsp;use&nbsp;for&nbsp;separating&nbsp;values</tt></dd></dl>
+
+<dl><dt><a name="FSProtocol-apiConferenceListCount"><strong>apiConferenceListCount</strong></a>(self, name, background<font color="#909090">=True</font>)</dt><dd><tt>Return&nbsp;number&nbsp;of&nbsp;members&nbsp;in&nbsp;the&nbsp;conference<br>
+&nbsp;<br>
+name&nbsp;--&nbsp;(str)&nbsp;name&nbsp;of&nbsp;the&nbsp;conference</tt></dd></dl>
+
+<dl><dt><a name="FSProtocol-apiConferenceMute"><strong>apiConferenceMute</strong></a>(self, name, member, background<font color="#909090">=False</font>)</dt><dd><tt>Mute&nbsp;given&nbsp;member&nbsp;in&nbsp;a&nbsp;conference<br>
+&nbsp;<br>
+name&nbsp;--&nbsp;(str)&nbsp;name&nbsp;of&nbsp;the&nbsp;conference<br>
+member&nbsp;--&nbsp;(str)&nbsp;member&nbsp;id&nbsp;or&nbsp;all&nbsp;or&nbsp;last</tt></dd></dl>
+
+<dl><dt><a name="FSProtocol-apiConferencePlay"><strong>apiConferencePlay</strong></a>(self, name, filename, member<font color="#909090">=None</font>, background<font color="#909090">=False</font>)</dt><dd><tt>Playback&nbsp;given&nbsp;file&nbsp;in&nbsp;conference<br>
+&nbsp;<br>
+name&nbsp;--&nbsp;(str)&nbsp;name&nbsp;of&nbsp;the&nbsp;conference<br>
+filename&nbsp;--&nbsp;(str)&nbsp;name&nbsp;of&nbsp;the&nbsp;audio&nbsp;file&nbsp;to&nbsp;be&nbsp;played&nbsp;in&nbsp;conference<br>
+member&nbsp;--&nbsp;(str)&nbsp;member&nbsp;id&nbsp;in&nbsp;conference</tt></dd></dl>
+
+<dl><dt><a name="FSProtocol-apiConferenceStop"><strong>apiConferenceStop</strong></a>(self, name, fid<font color="#909090">=None</font>, member<font color="#909090">=None</font>, background<font color="#909090">=False</font>)</dt><dd><tt>Stop&nbsp;an&nbsp;ongoing/queued&nbsp;playback&nbsp;in&nbsp;conference<br>
+&nbsp;<br>
+name&nbsp;--&nbsp;(str)&nbsp;name&nbsp;of&nbsp;the&nbsp;conference<br>
+fid&nbsp;--&nbsp;(str)&nbsp;file&nbsp;ID&nbsp;to&nbsp;stop&nbsp;takes&nbsp;all|async|current|last<br>
+member&nbsp;--&nbsp;(str)&nbsp;member&nbsp;id&nbsp;in&nbsp;conference</tt></dd></dl>
+
+<dl><dt><a name="FSProtocol-apiConferenceUnMute"><strong>apiConferenceUnMute</strong></a>(self, name, member, background<font color="#909090">=False</font>)</dt><dd><tt>UnMute&nbsp;given&nbsp;member&nbsp;in&nbsp;a&nbsp;conference<br>
+&nbsp;<br>
+name&nbsp;--&nbsp;(str)&nbsp;name&nbsp;of&nbsp;the&nbsp;conference<br>
+member&nbsp;--&nbsp;(str)&nbsp;member&nbsp;id&nbsp;or&nbsp;all&nbsp;or&nbsp;last</tt></dd></dl>
+
+<dl><dt><a name="FSProtocol-apiConferenceVolume"><strong>apiConferenceVolume</strong></a>(self, name, member, value<font color="#909090">=0</font>, direction<font color="#909090">='out'</font>, background<font color="#909090">=False</font>)</dt><dd><tt>Set&nbsp;volume&nbsp;of&nbsp;conference&nbsp;<br>
+&nbsp;<br>
+name&nbsp;--&nbsp;(str)&nbsp;name&nbsp;of&nbsp;the&nbsp;conference&nbsp;<br>
+memeber&nbsp;--&nbsp;(str)&nbsp;member&nbsp;id&nbsp;or&nbsp;all&nbsp;or&nbsp;last&nbsp;<br>
+value&nbsp;--&nbsp;(int)&nbsp;0&nbsp;-&nbsp;4<br>
+direction&nbsp;--&nbsp;(str)&nbsp;in&nbsp;or&nbsp;out</tt></dd></dl>
 
 <dl><dt><a name="FSProtocol-apiDomainExists"><strong>apiDomainExists</strong></a>(self, domain, background<font color="#909090">=False</font>)</dt></dl>
 
@@ -509,6 +564,11 @@ script,&nbsp;or&nbsp;whatever&nbsp;is&nbsp;controlling&nbsp;the&nbsp;call.<br>
 &nbsp;<br>
 uuid&nbsp;-&nbsp;(str)&nbsp;uuid&nbsp;of&nbsp;the&nbsp;target&nbsp;channel&nbsp;<br>
 all&nbsp;-&nbsp;(bool)&nbsp;to&nbsp;break&nbsp;all&nbsp;queued&nbsp;up&nbsp;audio&nbsp;files&nbsp;or&nbsp;only&nbsp;the&nbsp;current&nbsp;one</tt></dd></dl>
+
+<dl><dt><a name="FSProtocol-apiUUIDBridge"><strong>apiUUIDBridge</strong></a>(self, uuid1, uuid2, background<font color="#909090">=False</font>)</dt><dd><tt>Bridge&nbsp;two&nbsp;active&nbsp;channel&nbsp;uuids&nbsp;<br>
+&nbsp;<br>
+uuid1&nbsp;--&nbsp;(str)&nbsp;Channel&nbsp;1&nbsp;uuid&nbsp;<br>
+uuid2&nbsp;--&nbsp;(str)&nbsp;Second&nbsp;channel&nbsp;uuid</tt></dd></dl>
 
 <dl><dt><a name="FSProtocol-apiUUIDBroadcast"><strong>apiUUIDBroadcast</strong></a>(self, uuid, path, leg<font color="#909090">='aleg'</font>, background<font color="#909090">=False</font>)</dt><dd><tt>Play&nbsp;a&nbsp;&lt;path&gt;&nbsp;file&nbsp;to&nbsp;a&nbsp;specific&nbsp;&lt;uuid&gt;&nbsp;call.&nbsp;<br>
 &nbsp;<br>
@@ -565,6 +625,12 @@ off&nbsp;--&nbsp;(bool)</tt></dd></dl>
 &nbsp;<br>
 uuid&nbsp;--&nbsp;(str)&nbsp;uuid&nbsp;of&nbsp;the&nbsp;target&nbsp;channel</tt></dd></dl>
 
+<dl><dt><a name="FSProtocol-apiUUIDRecord"><strong>apiUUIDRecord</strong></a>(self, uuid, start, path, limit<font color="#909090">=None</font>, background<font color="#909090">=False</font>)</dt><dd><tt>Record&nbsp;channel&nbsp;to&nbsp;given&nbsp;path<br>
+&nbsp;<br>
+uuid--(str)&nbsp;uuid&nbsp;of&nbsp;the&nbsp;target&nbsp;channel<br>
+start--(bool)&nbsp;start&nbsp;or&nbsp;stop&nbsp;recording<br>
+path&nbsp;--(str)&nbsp;path&nbsp;of&nbsp;file&nbsp;to&nbsp;where&nbsp;channel&nbsp;should&nbsp;be&nbsp;recorded</tt></dd></dl>
+
 <dl><dt><a name="FSProtocol-apiUUIDSendDTMF"><strong>apiUUIDSendDTMF</strong></a>(self, uuid, dtmf, background<font color="#909090">=False</font>)</dt><dd><tt>Send&nbsp;dtmf&nbsp;to&nbsp;given&nbsp;channel&nbsp;<br>
 &nbsp;<br>
 uuid&nbsp;--&nbsp;(str)&nbsp;uuid&nbsp;of&nbsp;the&nbsp;target&nbsp;channel<br>
@@ -578,9 +644,17 @@ module_name&nbsp;--&nbsp;(str)&nbsp;name&nbsp;of&nbsp;the&nbsp;module&nbsp;to&nb
 
 <dl><dt><a name="FSProtocol-auth"><strong>auth</strong></a>(self)</dt><dd><tt>FreeSWITCH&nbsp;is&nbsp;requesting&nbsp;to&nbsp;authenticate</tt></dd></dl>
 
+<dl><dt><a name="FSProtocol-avmd"><strong>avmd</strong></a>(self, start<font color="#909090">=True</font>, uuid<font color="#909090">=''</font>, lock<font color="#909090">=True</font>)</dt><dd><tt>Start&nbsp;or&nbsp;stop&nbsp;avmd&nbsp;on&nbsp;current&nbsp;channel</tt></dd></dl>
+
 <dl><dt><a name="FSProtocol-bridge"><strong>bridge</strong></a>(self, endpoints<font color="#909090">=[]</font>, uuid<font color="#909090">=''</font>, lock<font color="#909090">=True</font>)</dt><dd><tt>Bridge&nbsp;and&nbsp;endpoint&nbsp;to&nbsp;given&nbsp;channel&nbsp;<br>
 &nbsp;<br>
 endpoints&nbsp;--&nbsp;(list)&nbsp;list&nbsp;of&nbsp;endpoint&nbsp;FreeSWITCH&nbsp;URIs</tt></dd></dl>
+
+<dl><dt><a name="FSProtocol-conference"><strong>conference</strong></a>(self, confname, uuid<font color="#909090">=''</font>, lock<font color="#909090">=True</font>)</dt><dd><tt>Connect&nbsp;the&nbsp;channel&nbsp;to&nbsp;give&nbsp;conference<br>
+&nbsp;<br>
+confname&nbsp;--&nbsp;(str)&nbsp;conference&nbsp;name</tt></dd></dl>
+
+<dl><dt><a name="FSProtocol-connectionLost"><strong>connectionLost</strong></a>(self, reason)</dt></dl>
 
 <dl><dt><a name="FSProtocol-connectionMade"><strong>connectionMade</strong></a>(self)</dt></dl>
 
@@ -590,13 +664,21 @@ ecb&nbsp;--&nbsp;(<a href="#EventCallback">EventCallback</a>)&nbsp;instance&nbsp
 
 <dl><dt><a name="FSProtocol-disconnectNotice"><strong>disconnectNotice</strong></a>(self)</dt><dd><tt>Handle&nbsp;disconnect&nbsp;notice</tt></dd></dl>
 
-<dl><dt><a name="FSProtocol-disconnectNoticeReceived"><strong>disconnectNoticeReceived</strong></a>(self, msg)</dt><dd><tt>Override&nbsp;this&nbsp;to&nbsp;receive&nbsp;disconnect&nbsp;notice&nbsp;from&nbsp;freeswitch</tt></dd></dl>
+<dl><dt><a name="FSProtocol-disconnectNoticeReceived"><strong>disconnectNoticeReceived</strong></a>(self, msg)</dt><dd><tt>Override&nbsp;this&nbsp;to&nbsp;receive&nbsp;disconnect&nbsp;notice&nbsp;from&nbsp;FreeSWITCH</tt></dd></dl>
+
+<dl><dt><a name="FSProtocol-disconnectedFromFreeSWITCH"><strong>disconnectedFromFreeSWITCH</strong></a>(self)</dt><dd><tt>Over-ride&nbsp;this&nbsp;to&nbsp;get&nbsp;notified&nbsp;of&nbsp;FreeSWITCH&nbsp;disconnection</tt></dd></dl>
 
 <dl><dt><a name="FSProtocol-dispacthEvent"><strong>dispacthEvent</strong></a>(self)</dt></dl>
 
+<dl><dt><a name="FSProtocol-endlessPlayback"><strong>endlessPlayback</strong></a>(self, path, uuid<font color="#909090">=''</font>, lock<font color="#909090">=True</font>)</dt><dd><tt>Play&nbsp;a&nbsp;file&nbsp;endlessly</tt></dd></dl>
+
+<dl><dt><a name="FSProtocol-fireAPIDeferred"><strong>fireAPIDeferred</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="FSProtocol-flowBreak"><strong>flowBreak</strong></a>(self, clear_queue<font color="#909090">=False</font>, uuid<font color="#909090">=''</font>, lock<font color="#909090">=True</font>)</dt><dd><tt>Break&nbsp;the&nbsp;current&nbsp;action&nbsp;that&nbsp;is&nbsp;being&nbsp;performed&nbsp;on&nbsp;call</tt></dd></dl>
+
 <dl><dt><a name="FSProtocol-hangup"><strong>hangup</strong></a>(self, uuid<font color="#909090">=''</font>, lock<font color="#909090">=True</font>)</dt><dd><tt>Hangup&nbsp;current&nbsp;channel</tt></dd></dl>
 
-<dl><dt><a name="FSProtocol-inspectMessage"><strong>inspectMessage</strong></a>(self)</dt></dl>
+<dl><dt><a name="FSProtocol-inspectMessage"><strong>inspectMessage</strong></a>(self)</dt><dd><tt>Inspect&nbsp;message&nbsp;and&nbsp;dispatch&nbsp;based&nbsp;on&nbsp;self.<strong>state</strong>&nbsp;or&nbsp;Content-Type&nbsp;of&nbsp;message</tt></dd></dl>
 
 <dl><dt><a name="FSProtocol-lineReceived"><strong>lineReceived</strong></a>(self, line)</dt></dl>
 
@@ -606,13 +688,13 @@ ecb&nbsp;--&nbsp;(<a href="#EventCallback">EventCallback</a>)&nbsp;instance&nbsp
 &nbsp;<br>
 event&nbsp;--&nbsp;(str)&nbsp;event&nbsp;name&nbsp;<br>
 &nbsp;<br>
-retruns&nbsp;bool</tt></dd></dl>
+returns&nbsp;bool</tt></dd></dl>
 
 <dl><dt><a name="FSProtocol-onAPIReply"><strong>onAPIReply</strong></a>(self)</dt><dd><tt>Handle&nbsp;API&nbsp;reply</tt></dd></dl>
 
-<dl><dt><a name="FSProtocol-onBackgroundJob"><strong>onBackgroundJob</strong></a>(self, message, df)</dt></dl>
+<dl><dt><a name="FSProtocol-onBackgroundJob"><strong>onBackgroundJob</strong></a>(self, message, df)</dt><dd><tt>we&nbsp;may&nbsp;not&nbsp;need&nbsp;this&nbsp;method&nbsp;anymore</tt></dd></dl>
 
-<dl><dt><a name="FSProtocol-onBackgroundJobFinalEvent"><strong>onBackgroundJobFinalEvent</strong></a>(self, event)</dt></dl>
+<dl><dt><a name="FSProtocol-onBackgroundJobFinalEvent"><strong>onBackgroundJobFinalEvent</strong></a>(self, event)</dt><dd><tt>we&nbsp;may&nbsp;not&nbsp;need&nbsp;this&nbsp;method&nbsp;anymore</tt></dd></dl>
 
 <dl><dt><a name="FSProtocol-onCommandReply"><strong>onCommandReply</strong></a>(self)</dt><dd><tt>Handle&nbsp;CommandReply</tt></dd></dl>
 
@@ -636,12 +718,23 @@ Make&nbsp;sure&nbsp;CHANNEL_EXECUTE_COMPLETE&nbsp;&nbsp;event&nbsp;is&nbsp;subcr
 &nbsp;<br>
 path&nbsp;--&nbsp;(str)&nbsp;path&nbsp;of&nbsp;the&nbsp;file&nbsp;to&nbsp;be&nbsp;played&nbsp;'</tt></dd></dl>
 
-<dl><dt><a name="FSProtocol-rawDataReceived"><strong>rawDataReceived</strong></a>(self, data)</dt></dl>
+<dl><dt><a name="FSProtocol-playbackSync"><strong>playbackSync</strong></a>(self, *args, **kwargs)</dt></dl>
+
+<dl><dt><a name="FSProtocol-playbackSyncComplete"><strong>playbackSyncComplete</strong></a>(self, event, finalDF)</dt></dl>
+
+<dl><dt><a name="FSProtocol-playbackSyncFailed"><strong>playbackSyncFailed</strong></a>(self, error, finalDF)</dt></dl>
+
+<dl><dt><a name="FSProtocol-playbackSyncSuccess"><strong>playbackSyncSuccess</strong></a>(self, result, finalDF)</dt></dl>
+
+<dl><dt><a name="FSProtocol-rawDataReceived"><strong>rawDataReceived</strong></a>(self, data)</dt><dd><tt>Read&nbsp;length&nbsp;of&nbsp;raw&nbsp;data&nbsp;specified&nbsp;by&nbsp;self.<strong>contentLength</strong>&nbsp;and&nbsp;set&nbsp;it&nbsp;as&nbsp;message&nbsp;payload</tt></dd></dl>
 
 <dl><dt><a name="FSProtocol-record"><strong>record</strong></a>(self, path, time_limit_secs<font color="#909090">=' '</font>, silence_thresh<font color="#909090">=' '</font>, silence_hits<font color="#909090">=' '</font>, terminators<font color="#909090">=''</font>, uuid<font color="#909090">=''</font>, lock<font color="#909090">=True</font>)</dt></dl>
 
+<dl><dt><a name="FSProtocol-recordSession"><strong>recordSession</strong></a>(self, filename, uuid<font color="#909090">=''</font>, lock<font color="#909090">=True</font>)</dt><dd><tt>Record&nbsp;entire&nbsp;session&nbsp;using&nbsp;record_session&nbsp;dialplan&nbsp;tool</tt></dd></dl>
+
 <dl><dt><a name="FSProtocol-registerEvent"><strong>registerEvent</strong></a>(self, event, subscribe, function, *args, **kwargs)</dt><dd><tt>Register&nbsp;a&nbsp;callback&nbsp;for&nbsp;the&nbsp;event&nbsp;<br>
-event&nbsp;--&nbsp;(str)&nbsp;<a href="#Event">Event</a>&nbsp;name&nbsp;as&nbsp;sent&nbsp;by&nbsp;FreeSWITCH<br>
+event&nbsp;--&nbsp;(str)&nbsp;<a href="#Event">Event</a>&nbsp;name&nbsp;as&nbsp;sent&nbsp;by&nbsp;FreeSWITCH&nbsp;,&nbsp;Custom&nbsp;events&nbsp;should&nbsp;give&nbsp;subclass&nbsp;also&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;eg&nbsp;:&nbsp;CUSTOM&nbsp;conference::maintenance<br>
 subsribe&nbsp;--&nbsp;(bool)&nbsp;if&nbsp;True&nbsp;subscribe&nbsp;to&nbsp;this&nbsp;event<br>
 function&nbsp;--&nbsp;callback&nbsp;function&nbsp;accepts&nbsp;a&nbsp;event&nbsp;dictionary&nbsp;as&nbsp;first&nbsp;argument<br>
 args&nbsp;--&nbsp;argumnet&nbsp;to&nbsp;be&nbsp;passed&nbsp;to&nbsp;callback&nbsp;function<br>
@@ -651,7 +744,7 @@ returns&nbsp;instance&nbsp;of&nbsp;&nbsp;<a href="#EventCallback">EventCallback<
 
 <dl><dt><a name="FSProtocol-say"><strong>say</strong></a>(self, module<font color="#909090">='en'</font>, say_type<font color="#909090">='NUMBER'</font>, say_method<font color="#909090">='PRONOUNCED'</font>, text<font color="#909090">=''</font>, uuid<font color="#909090">=''</font>, lock<font color="#909090">=True</font>)</dt></dl>
 
-<dl><dt><a name="FSProtocol-schedHangup"><strong>schedHangup</strong></a>(self, secs, uuid, lock<font color="#909090">=True</font>)</dt><dd><tt>Schedule&nbsp;hangup&nbsp;<br>
+<dl><dt><a name="FSProtocol-schedHangup"><strong>schedHangup</strong></a>(self, secs, uuid<font color="#909090">=''</font>, lock<font color="#909090">=True</font>)</dt><dd><tt>Schedule&nbsp;hangup&nbsp;<br>
 &nbsp;<br>
 seconds&nbsp;--&nbsp;(int/str)&nbsp;seconds&nbsp;to&nbsp;wait&nbsp;before&nbsp;hangup</tt></dd></dl>
 
@@ -672,9 +765,17 @@ msg&nbsp;--&nbsp;(event)&nbsp;<a href="#Event">Event</a>&nbsp;object</tt></dd></
 variable&nbsp;--&nbsp;(str)&nbsp;name&nbsp;of&nbsp;the&nbsp;channel&nbsp;variable<br>
 value&nbsp;--&nbsp;(str)&nbsp;value&nbsp;of&nbsp;the&nbsp;channel&nbsp;variable</tt></dd></dl>
 
-<dl><dt><a name="FSProtocol-subscribeEvents"><strong>subscribeEvents</strong></a>(self, events)</dt><dd><tt>Subcribe&nbsp;to&nbsp;FreeSWITCH&nbsp;events.<br>
+<dl><dt><a name="FSProtocol-stopRecordSession"><strong>stopRecordSession</strong></a>(self, path, uuid<font color="#909090">=''</font>, lock<font color="#909090">=True</font>)</dt><dd><tt>Stop&nbsp;recording&nbsp;session</tt></dd></dl>
+
+<dl><dt><a name="FSProtocol-subscribeEvents"><strong>subscribeEvents</strong></a>(self, events)</dt><dd><tt>Subscribe&nbsp;to&nbsp;FreeSWITCH&nbsp;events.<br>
 &nbsp;<br>
-events&nbsp;-(str)&nbsp;'all'&nbsp;&nbsp;sucbscribe&nbsp;to&nbsp;all&nbsp;events&nbsp;or&nbsp;event&nbsp;names&nbsp;seprated&nbsp;by&nbsp;space</tt></dd></dl>
+events&nbsp;-(str)&nbsp;'all'&nbsp;&nbsp;subscribe&nbsp;to&nbsp;all&nbsp;events&nbsp;or&nbsp;event&nbsp;names&nbsp;separated&nbsp;by&nbsp;space<br>
+this&nbsp;method&nbsp;can&nbsp;subscribe&nbsp;to&nbsp;multiple&nbsp;events&nbsp;but&nbsp;if&nbsp;the&nbsp;event&nbsp;is&nbsp;of&nbsp;CUSTOM&nbsp;type<br>
+then&nbsp;only&nbsp;one&nbsp;CUSTOM&nbsp;event&nbsp;with&nbsp;subclass&nbsp;should&nbsp;be&nbsp;given</tt></dd></dl>
+
+<dl><dt><a name="FSProtocol-voice_start"><strong>voice_start</strong></a>(self, uuid<font color="#909090">=''</font>, lock<font color="#909090">=True</font>)</dt><dd><tt>Start&nbsp;AMD&nbsp;on&nbsp;current&nbsp;channel</tt></dd></dl>
+
+<dl><dt><a name="FSProtocol-voice_stop"><strong>voice_stop</strong></a>(self, uuid<font color="#909090">=''</font>, lock<font color="#909090">=True</font>)</dt><dd><tt>Stop&nbsp;AMD&nbsp;on&nbsp;current&nbsp;channel</tt></dd></dl>
 
 <hr>
 Data and other attributes defined here:<br>
@@ -689,7 +790,7 @@ Methods inherited from <a href="twisted.protocols.basic.html#LineReceiver">LineR
 <dl><dt><a name="FSProtocol-clearLineBuffer"><strong>clearLineBuffer</strong></a>(self)</dt><dd><tt>Clear&nbsp;buffered&nbsp;data.<br>
 &nbsp;<br>
 @return:&nbsp;All&nbsp;of&nbsp;the&nbsp;cleared&nbsp;buffered&nbsp;data.<br>
-@rtype:&nbsp;C{str}</tt></dd></dl>
+@rtype:&nbsp;C{bytes}</tt></dd></dl>
 
 <dl><dt><a name="FSProtocol-dataReceived"><strong>dataReceived</strong></a>(self, data)</dt><dd><tt>Protocol.dataReceived.<br>
 Translates&nbsp;bytes&nbsp;into&nbsp;lines,&nbsp;and&nbsp;calls&nbsp;lineReceived&nbsp;(or<br>
@@ -703,7 +804,10 @@ with&nbsp;(at&nbsp;least&nbsp;some&nbsp;part)&nbsp;of&nbsp;the&nbsp;line&nbsp;wh
 be&nbsp;more&nbsp;than&nbsp;one&nbsp;line,&nbsp;or&nbsp;may&nbsp;be&nbsp;only&nbsp;the&nbsp;initial&nbsp;portion&nbsp;of&nbsp;the<br>
 line.</tt></dd></dl>
 
-<dl><dt><a name="FSProtocol-sendLine"><strong>sendLine</strong></a>(self, line)</dt><dd><tt>Sends&nbsp;a&nbsp;line&nbsp;to&nbsp;the&nbsp;other&nbsp;end&nbsp;of&nbsp;the&nbsp;connection.</tt></dd></dl>
+<dl><dt><a name="FSProtocol-sendLine"><strong>sendLine</strong></a>(self, line)</dt><dd><tt>Sends&nbsp;a&nbsp;line&nbsp;to&nbsp;the&nbsp;other&nbsp;end&nbsp;of&nbsp;the&nbsp;connection.<br>
+&nbsp;<br>
+@param&nbsp;line:&nbsp;The&nbsp;line&nbsp;to&nbsp;send,&nbsp;not&nbsp;including&nbsp;the&nbsp;delimiter.<br>
+@type&nbsp;line:&nbsp;C{bytes}</tt></dd></dl>
 
 <dl><dt><a name="FSProtocol-setLineMode"><strong>setLineMode</strong></a>(self, extra<font color="#909090">=''</font>)</dt><dd><tt>Sets&nbsp;the&nbsp;line-mode&nbsp;of&nbsp;this&nbsp;receiver.<br>
 &nbsp;<br>
@@ -727,12 +831,8 @@ Data and other attributes inherited from <a href="twisted.protocols.basic.html#L
 
 <hr>
 Methods inherited from <a href="twisted.internet.protocol.html#Protocol">Protocol</a>:<br>
-<dl><dt><a name="FSProtocol-connectionLost"><strong>connectionLost</strong></a>(self, reason<font color="#909090">=&lt;twisted.python.failure.Failure &lt;class 'twisted.internet.error.ConnectionDone'&gt;&gt;</font>)</dt><dd><tt>Called&nbsp;when&nbsp;the&nbsp;connection&nbsp;is&nbsp;shut&nbsp;down.<br>
-&nbsp;<br>
-Clear&nbsp;any&nbsp;circular&nbsp;references&nbsp;here,&nbsp;and&nbsp;any&nbsp;external&nbsp;references<br>
-to&nbsp;this&nbsp;Protocol.&nbsp;&nbsp;The&nbsp;connection&nbsp;has&nbsp;been&nbsp;closed.<br>
-&nbsp;<br>
-@type&nbsp;reason:&nbsp;L{twisted.python.failure.Failure}</tt></dd></dl>
+<dl><dt><a name="FSProtocol-logPrefix"><strong>logPrefix</strong></a>(self)</dt><dd><tt>Return&nbsp;a&nbsp;prefix&nbsp;matching&nbsp;the&nbsp;class&nbsp;name,&nbsp;to&nbsp;identify&nbsp;log&nbsp;messages<br>
+related&nbsp;to&nbsp;this&nbsp;protocol&nbsp;instance.</tt></dd></dl>
 
 <hr>
 Data and other attributes inherited from <a href="twisted.internet.protocol.html#Protocol">Protocol</a>:<br>
@@ -747,7 +847,7 @@ This&nbsp;sets&nbsp;the&nbsp;'transport'&nbsp;attribute&nbsp;of&nbsp;this&nbsp;P
 
 <hr>
 Data and other attributes inherited from <a href="twisted.internet.protocol.html#BaseProtocol">BaseProtocol</a>:<br>
-<dl><dt><strong>__providedBy__</strong> = &lt;zope.interface.declarations.Declaration object at 0x027D5BF0&gt;</dl>
+<dl><dt><strong>__providedBy__</strong> = &lt;zope.interface.declarations.Declaration object&gt;</dl>
 
 <dl><dt><strong>connected</strong> = 0</dl>
 
@@ -772,8 +872,9 @@ Data and other attributes inherited from <a href="twisted.protocols.basic.html#_
 <font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
     
 <tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
-<td width="100%"><strong>__file__</strong> = r'C:\Python25\lib\site-packages\pyswitch\fsprotocol.pyc'<br>
+<td width="100%"><strong>__file__</strong> = r'c:\Python27\lib\site-packages\pyswitch\fsprotocol.pyc'<br>
 <strong>__name__</strong> = 'pyswitch.fsprotocol'<br>
-<strong>log</strong> = &lt;logging.Logger instance at 0x02EC4DF0&gt;<br>
-<strong>reactor</strong> = &lt;twisted.internet.selectreactor.SelectReactor object at 0x02D7F710&gt;</td></tr></table>
+<strong>__package__</strong> = 'pyswitch'<br>
+<strong>log</strong> = &lt;logging.Logger object&gt;<br>
+<strong>reactor</strong> = &lt;twisted.internet.selectreactor.SelectReactor object&gt;</td></tr></table>
 </body></html>
