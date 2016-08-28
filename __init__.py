@@ -15,11 +15,7 @@ __email__ = 'godson.g@gmail.com',
 __copyright__ = 'Copyright 2015, Godson Gera'
 __credits__ = ['FreeSWITCH Team', 'Twisted Team']
 __license__ = 'GPL'
-<<<<<<< HEAD
 __version__ = '0.3'
-=======
-__version__ = '0.2'
->>>>>>> af66e2e1cf2c32675f66e4a5ba822cfd85b53923
 
 import inbound
 import outbound
