@@ -2,19 +2,13 @@
 
 
 import logging
-import sys
 import urllib
 import uuid
 
 from twisted.internet import defer
 from twisted.protocols import basic
-
-if sys.hexversion < 0x020500f0:
-    from email.Message import Message
-    from email.FeedParser import FeedParser
-else:
-    from email.message import Message
-    from email.feedparser import FeedParser
+from email.message import Message
+from email.feedparser import FeedParser
 
 log = logging.getLogger("PySWITCH")
 
@@ -47,7 +41,7 @@ class Event(Message):
         "From ".  For more flexibility, use the flatten() method of a
         Generator instance.
         """
-        from email.Generator import Generator
+        from email.generator import Generator
         from cStringIO import StringIO
         fp = StringIO()
         g = Generator(fp, maxheaderlen=0)
