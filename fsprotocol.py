@@ -412,7 +412,7 @@ class FSProtocol(basic.LineReceiver):
         if not events.startswith("CUSTOM"):
             _events = events.split(' ')
         for event in _events:
-            self.subscribedEvents.append(events)
+            self.subscribedEvents.append(event)
         
         return self.sendData("event plain", events)
         
@@ -733,9 +733,10 @@ class FSProtocol(basic.LineReceiver):
         mux -- (bool) cause the original audio to be mixed, i.e. you can still converse with the other party while the file is playing 
         """
         if mux:
-            apicmd = ' '.join(['uuid_displace', switch, path, limit, "mux"])
+            apicmd = ' '.join(['uuid_displace', uuid, switch, path, limit, "mux"])
         else:
-            apicmd = ' '.join(['uuid_displace', switch, path, limit,])            
+            apicmd = ' '.join(['uuid_displace', uuid, switch, path, limit,])
+
         return self.sendAPI(apicmd, background)
     
     def apiUUIDExists(self, uuid, background=jobType):
