@@ -23,7 +23,7 @@ class InboundProtocol(FSProtocol):
         return df
 
     def authSuccess(self, msg):
-        """Override this for when authentication is sueccessful"""
+        """Override this for when authentication is successfully"""
         log.info("Successfully authenticated")
         if hasattr(self.factory, "loginDeferred"):
             self.factory.loginDeferred.callback(self)
