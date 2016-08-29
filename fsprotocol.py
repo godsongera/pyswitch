@@ -630,7 +630,7 @@ class FSProtocol(basic.LineReceiver):
 
     # Call management
     def apiOriginate(self, url, application='', appargs='', extension='', dialplan='', context='', cidname='',
-                     cidnum='', timeout='', channelvars={}, background=jobType):
+                     cidnum='', timeout='', channelvars=None, background=jobType):
         """Originate a new channel and connect it back to the specified extension or application
         
         url -- (str) call url . Should be a valid FreeSWITCH supported URL
@@ -644,6 +644,8 @@ class FSProtocol(basic.LineReceiver):
         cidnum -- (str) Outbound caller ID number
         channelvars -- (dict) key value pairs of channel variables to be set on originated channel.
         """
+        if channelvars is None:
+            channelvars = {}
         apicmd = "originate"
         if channelvars:
             vars = []
@@ -849,11 +851,13 @@ class FSProtocol(basic.LineReceiver):
         """
         return self.sendCommand("hangup", '', uuid, lock)
 
-    def bridge(self, endpoints=[], uuid='', lock=True):
+    def bridge(self, endpoints=None, uuid='', lock=True):
         """Bridge and endpoint to given channel 
         
         endpoints -- (list) list of endpoint FreeSWITCH URIs
         """
+        if endpoints is None:
+            endpoints = []
         endpoints = ','.join(endpoints)
         return self.sendCommand("bridge", endpoints, uuid, lock)
 
