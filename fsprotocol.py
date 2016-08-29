@@ -66,6 +66,17 @@ class FSProtocol(basic.LineReceiver):
     delimiter = "\n\n"
     jobType = False
     state = "READ_CONTENT"
+    contentCallbacks = None
+    pendingJobs = None
+    pendingBackgroundJobs = None
+    eventCallbacks = None
+    customEventCallbacks = None
+    subscribedEvents = None
+    parser = None
+    message = None
+    rawdataCache = ''
+    contentLength = 0
+    currentDeferred = None
 
     def connectionMade(self):
         self.contentCallbacks = {"auth/request": self.auth,
