@@ -904,7 +904,7 @@ class FSProtocol(basic.LineReceiver):
         data = ' '.join(arglist)
         return self.sendCommand("say", data,uuid, lock)
         
-    def set(self, variable, value, uuid='', lock=True):
+    def setvar(self, variable, value, uuid='', lock=True):
         """Set a channel variable 
         
         variable -- (str) name of the channel variable
