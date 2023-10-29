@@ -12,8 +12,6 @@ from email.generator import Generator
 from io import StringIO
 
 
-
-
 log = logging.getLogger("PySWITCH")
 
 
