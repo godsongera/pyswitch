@@ -1,0 +1,11 @@
+*pyc
+*egg*
+.idea/*
+_trial_temp/*
+log/*
+run/*
+*swp
+#*
+*#
+.vscode*
+*venv*
