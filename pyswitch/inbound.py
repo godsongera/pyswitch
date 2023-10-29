@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-from fsprotocol import *
+from .fsprotocol import *
 
 log = logging.getLogger("InbounSocket")
 
@@ -36,9 +36,10 @@ class InboundProtocol(FSProtocol):
 
 
 class InboundFactory(protocol.ClientFactory):
-    """A factory for InboundSocketProtocol
-    """
+    """A factory for InboundSocketProtocol"""
+
     protocol = InboundProtocol
+
     def __init__(self, password):
         self.password = password
         self.loginDeferred = defer.Deferred()
