@@ -31,7 +31,7 @@ class Event(Message):
         """Rebuild the event headers with with URL format decoded values"""
         for k, v in self.items():
             del self[k]
-            self[k] = urllib.unquote(v)
+            self[k] = urllib.parse.unquote(v)
 
     # Overriding this method was required as default python lib wraps headers
     # with length greater than 78 chars which is bad for FreeSWITCH
@@ -189,7 +189,7 @@ class FSProtocol(basic.LineReceiver):
         self.message = self.parser.close()
         # if self.state is not READ_CONTENT (i.e Content-Type is already read) and the Content-Length is present
         # read rest of the message and set it as payload
-        if self.message.has_key("Content-Length") and self.state != "READ_CONTENT":
+        if "Content-Length" in self.message and self.state != "READ_CONTENT":
             if self.enterRawMode():
                 log.debug("Entering raw mode to read message payload")
                 return
@@ -201,7 +201,7 @@ class FSProtocol(basic.LineReceiver):
     def rawDataReceived(self, data):
         """Read length of raw data specified by self.contentLength and set it as message payload"""
         log.debug("Data In : %s" % data)
-        self.rawdataCache = "".join([self.rawdataCache, data])
+        self.rawdataCache = b"".join([self.rawdataCache, data])
         if len(self.rawdataCache) >= self.contentLength - 1:
             self.clearLineBuffer()
             extra = self.rawdataCache[self.contentLength :]
@@ -219,7 +219,7 @@ class FSProtocol(basic.LineReceiver):
         """
         self.contentLength = int(self.message["Content-Length"].strip())
         if self.contentLength > 0:
-            self.rawdataCache = ""
+            self.rawdataCache = b""
             self.setRawMode()
             return True
         return False
@@ -232,7 +232,7 @@ class FSProtocol(basic.LineReceiver):
             return self.onConnect()
         if self.state == "READ_API":
             return self.fireAPIDeferred()
-        if not self.message.has_key("Content-Type"):
+        if "Content-Type" not in self.message:
             return
         ct = self.message["Content-Type"]
         try:
@@ -292,7 +292,7 @@ class FSProtocol(basic.LineReceiver):
         """
         Handle API reply
         """
-        if not self.message.has_key("Content-Length"):
+        if "Content-Length" not in self.message:
             self.currentDeferred = self.pendingJobs.pop(0)
             return self.currentDeferred.callback(self.message)
         if self.enterRawMode():
@@ -306,7 +306,7 @@ class FSProtocol(basic.LineReceiver):
         """
         Handle CommandReply
         """
-        if self.message.has_key("Job-UUID"):
+        if "Job-UUID" in self.message:
             return
         try:
             df = self.pendingJobs.pop(0)
@@ -333,13 +333,13 @@ class FSProtocol(basic.LineReceiver):
         Handle disconnect notice
         """
 
-        if not self.message.has_key("Content-Length"):
+        if "Content-Length" not in self.message:
             return self.disconnectNoticeReceived(self.message)
         self.contentLength = int(self.message["Content-Length"])
         if self.contentLength > 0:
             self.currentDeferred = defer.Deferred()
             log.info("Enter raw mode to read disconnect notice")
-            self.rawdataCache = ""
+            self.rawdataCache = b""
             self.setRawMode()
         else:
             self.disconnectNoticeReceived(self.message)
@@ -1016,7 +1016,7 @@ class FSProtocol(basic.LineReceiver):
     def _checkPlaybackResult(self, event, finalDF, varname):
         if event["Application"] == "play_and_get_digits":
             self.deregisterEvent(finalDF.ecb)
-            if event.has_key("variable_" + varname):
+            if "variable_" + varname in event:
                 finalDF.callback(event["variable_" + varname])
             else:
                 finalDF.callback(None)

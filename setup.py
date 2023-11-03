@@ -12,22 +12,23 @@ setup(
     description="Twisted Protocols for interaction with the FreeSWITCH",
     author="Godeson Gera",
     author_email="godson.g@gmail.com",
-    license = "GPL",
+    license="GPL",
     keywords="freeswitch eventsocket twisted protocol",
-    long_description=read('README.md'),
-    install_requires = ['Twisted',],
-    classifiers = [
-       "License :: OSI Approved :: GNU General Public License (GPL)",
-       "Programming Language :: Python",
-       "Topic :: Software Development :: Libraries :: Python Modules",
-       "Intended Audience :: Developers",
+    long_description=read("README.md"),
+    install_requires=[
+        "Twisted",
+    ],
+    classifiers=[
+        "License :: OSI Approved :: GNU General Public License (GPL)",
+        "Programming Language :: Python",
+        "Topic :: Software Development :: Libraries :: Python Modules",
+        "Intended Audience :: Developers",
     ],
     packages=find_packages(),
-    package_data = {
+    package_data={
         # If any package contains *.txt or *.rst files, include them:
-        '': ['*.txt', '*.rst'],
+        "": ["*.txt", "*.rst"],
         # And include any *.msg files found in the 'pyswitch' package, too:
-        'pyswitch': ['*.msg'],
+        "pyswitch": ["*.msg"],
     },
 )
-
