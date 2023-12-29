@@ -1,5 +1,6 @@
 #!/usr/bin/python
 
+from twisted.internet import reactor, protocol
 from .fsprotocol import *
 
 log = logging.getLogger("InbounSocket")

@@ -1,6 +1,8 @@
 #!/usr/bin/python
 
+from twisted.internet import protocol
 from .fsprotocol import *
+
 
 log = logging.getLogger("OutboundSocket")
 
