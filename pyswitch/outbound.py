@@ -20,7 +20,7 @@ class OutboundProtocol(FSProtocol):
         self.connect()
 
     def connect(self):
-        self.sendLine("connect")
+        self.sendLine("connect".encode("ascii"))
 
     def onConnect(self):
         self.state = "READ_CONTENT"

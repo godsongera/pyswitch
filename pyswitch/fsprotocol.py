@@ -185,7 +185,7 @@ class FSProtocol(basic.LineReceiver):
     def lineReceived(self, line):
         log.debug("Line In: %s" % line)
         self.parser = FeedParser(Event)
-        self.parser.feed(line)
+        self.parser.feed(line.decode('ascii', 'surrogateescape'))
         self.message = self.parser.close()
         # if self.state is not READ_CONTENT (i.e Content-Type is already read) and the Content-Length is present
         # read rest of the message and set it as payload
@@ -355,7 +355,7 @@ class FSProtocol(basic.LineReceiver):
         self.pendingJobs.append(df)
         if args:
             cmd = " ".join([cmd, args])
-        self.sendLine(cmd)
+        self.sendLine(cmd.encode('ascii'))
         log.debug("Line Out: %r" % cmd)
         return df
 
@@ -401,7 +401,7 @@ class FSProtocol(basic.LineReceiver):
         self.pendingBackgroundJobs[jobid] = backgroundJobDeferred
 
         log.debug("Line Out: %r", apicmd)
-        self.sendLine(apicmd)
+        self.sendLine(apicmd.encode("ascii"))
         return backgroundJobDeferred
 
     def subscribeEvents(self, events):
