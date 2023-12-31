@@ -355,7 +355,7 @@ class FSProtocol(basic.LineReceiver):
         self.pendingJobs.append(df)
         if args:
             cmd = " ".join([cmd, args])
-        self.sendLine(cmd.encode('ascii'))
+        self.sendLine(cmd.encode("ascii"))
         log.debug("Line Out: %r" % cmd)
         return df
 
@@ -368,7 +368,7 @@ class FSProtocol(basic.LineReceiver):
         df = defer.Deferred()
         self.pendingJobs.append(df)
         msg = msg.as_string(True)
-        self.transport.write(msg)
+        self.transport.write(msg.encode("ascii"))
         log.debug("Line Out: %r" % msg)
         return df
 
