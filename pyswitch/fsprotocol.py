@@ -185,7 +185,7 @@ class FSProtocol(basic.LineReceiver):
     def lineReceived(self, line):
         log.debug("Line In: %s" % line)
         self.parser = FeedParser(Event)
-        self.parser.feed(line.decode('ascii', 'surrogateescape'))
+        self.parser.feed(line.decode("ascii", "surrogateescape"))
         self.message = self.parser.close()
         # if self.state is not READ_CONTENT (i.e Content-Type is already read) and the Content-Length is present
         # read rest of the message and set it as payload
@@ -250,9 +250,7 @@ class FSProtocol(basic.LineReceiver):
                 df = self.pendingBackgroundJobs.pop(self.message["Job-UUID"])
                 df.callback(self.message)
             except KeyError:
-                log.error(
-                    "Stray BACKGROUND_JOB event received %s", self.message["Job-UUID"]
-                )
+                log.error("Stray BACKGROUND_JOB event received %s", self.message["Job-UUID"])
             except:
                 log.error("Error in BACKGROUND_JOB event handler", exc_info=True)
         if eventname == "CUSTOM":
@@ -268,8 +266,7 @@ class FSProtocol(basic.LineReceiver):
                 ecb.func(self.message, *ecb.args, **ecb.kwargs)
             except:
                 log.error(
-                    "Message %s\nError in event handler %s on event %s:"
-                    % (self.message, ecb.func, eventname),
+                    "Message %s\nError in event handler %s on event %s:" % (self.message, ecb.func, eventname),
                     exc_info=True,
                 )
 
@@ -311,10 +308,7 @@ class FSProtocol(basic.LineReceiver):
         try:
             df = self.pendingJobs.pop(0)
         except IndexError:
-            log.error(
-                "Command reply message received with out pending deferred %s"
-                % self.message
-            )
+            log.error("Command reply message received with out pending deferred %s" % self.message)
             return
         if self.message["Reply-Text"].startswith("+OK"):
             df.callback(self.message)
@@ -477,9 +471,7 @@ class FSProtocol(basic.LineReceiver):
         cmd = "conference %s list count" % name
         return self.sendAPI(cmd, background)
 
-    def apiConferenceVolume(
-        self, name, member, value=0, direction="out", background=jobType
-    ):
+    def apiConferenceVolume(self, name, member, value=0, direction="out", background=jobType):
         """Set volume of conference
 
         name -- (str) name of the conference
@@ -580,9 +572,7 @@ class FSProtocol(basic.LineReceiver):
         """
         pass
 
-    def apiHupAll(
-        self, cause="NORMAL_CLEARING", variable="", value="", background=jobType
-    ):
+    def apiHupAll(self, cause="NORMAL_CLEARING", variable="", value="", background=jobType):
         """Hangup all the existing channels
 
         cause -- cause for hanging up
@@ -913,9 +903,7 @@ class FSProtocol(basic.LineReceiver):
         return finalDF
 
     def playbackSyncSuccess(self, result, finalDF):
-        ecb = self.registerEvent(
-            "CHANNEL_EXECUTE_COMPLETE", True, self.playbackSyncComplete, finalDF
-        )
+        ecb = self.registerEvent("CHANNEL_EXECUTE_COMPLETE", True, self.playbackSyncComplete, finalDF)
         finalDF.ecb = ecb
 
     def playbackSyncFailed(self, error, finalDF):
